@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>Maquetado AhorrADAs</title>
   </head>
-  <body>
+  <body class="has-background-white-ter">
     <header>
       <!-- icono y ahorrADAs -->
       <nav
@@ -59,39 +59,114 @@
         </div>
       </nav>
     </header>
+    <!-- central section -->
+    <!-- contenedor principal - clase container -->
+    <main class="container">
+      <!-- div padre para aside y section - clase columns -->
+      
+      <div class="columns mt-5">
+        <!-- aside - Balance y Filtros - hijo - clase column -->
+        <aside class="column is-3 m-2">
+          <div class="box">
+            <h2 class="title is-4">Balance</h2>
+            <!-- div's - ganancias - gastos - total -->
+            <div class="columns is-flex">
+              <!-- ganancias-->
+              <div class="column">Ganancias</div>
+              <div class="column">+$0</div>
+            </div>
+            <!-- Gastos-->
+            <div class="columns is-flex">
+              <!-- ganancias-->
+              <div class="column">Gastos</div>
+              <div class="column">-$0</div>
+            </div>
+            <!-- Total -->
+            <div class="columns is-flex">
+              <!-- ganancias-->
+              <div class="column">Total</div>
+              <div class="column">$0</div>
+            </div>
+          </div>
+          <!-- Filtros-->
+          <div class="box mt-6">
+            <div class="columns is-flex">
+              <div class="column">
+                <h2 class="title is-5">Filtros</h2>
+              </div>
+              <div class="column is-block"><a href="#">Ocultar Filtros</a></div>
+            </div>
+            <!-- tipo -->
+            <div class="mt-5">
+              <label class="is-block" for="">Tipo</label>
 
-    <main class="has-text-white">
-      <!-- central section -->
-      <div class="container has-background-dark">
-        <!-- contenedor principal - clase container -->
-        <div class="columns mt-5 ml-6">
-          <!-- div padre para aside y section - clase columns -->
-          <!-- aside - Balance y Filtros -->
-          <aside class="column is-4 has-background-info mr-4">
-            <div class="has-background-warning">
-              <h1 class="title is-4">Balance</h1>
-              <div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi,
-                  reprehenderit?
-                </p>
+              <div class="control select">
+                <select>
+                  <option>Todos</option>
+                  <option>Gastos</option>
+                  <option>Ganancias</option>
+                </select>
               </div>
             </div>
-            <div class="has-background-danger">
-              <h1 class="title is-4">Filtros</h1>
-              <div>
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad,
-                  repellat?
-                </p>
+            <!-- categoria-->
+            <div class="mt-5">
+              <label class="is-block" for="">Categoría</label>
+
+              <div class="control select">
+                <select>
+                  <option>Todos</option>
+                  <option>Servicios</option>
+                  <option>Salidas</option>
+                  <option>Educación</option>
+                  <option>Transporte</option>
+                </select>
               </div>
             </div>
-          </aside>
-          <!-- section - Operaciones -->
-          <section class="column is-7 has-background-primary ml-5">
-            <h1 class="title is-4">Operaciones</h1>
-          </section>
+            <!-- fecha -->
+            <div class="mt-5">
+              <label class="is-block" for="">Fecha</label>
+              <input type="date" />
+            </div>
+            <!-- ordenado por -->
+            <div class="mt-5">
+              <label class="is-block" for="">Ordenado por</label>
+
+              <div class="control select">
+                <select>
+                  <option>Más reciente</option>
+                  <option>Menos reciente</option>
+                  <option>Mayor monto</option>
+                  <option>Menor Monto</option>
+                  <option>A/Z</option>
+                  <option>Z/A</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </aside>
+        <!-- section - Operaciones - hijo - clase column -->
+        <section class="column is-8 m-2">
+          <div class="box">
+          <div class="columns m-2">
+            <div class="column"><h1 class="title is-5">Operaciones</h1></div>
+            <div class="column">
+              <button class="button is-small is-primary">
+                + Agregar operación
+              </button>
+            </div>
+          </div>
+          <!-- imagen y texto -->
+          <div>
+            <figure class="image is-128x128">
+              <img src="assets/gastos.png" />
+            </figure>
+          </div>
+          <div>
+            <h3 class="title is-4 my-6">Sin resultados</h3>
+            <p class="subtitle is-5 my-3">Cambia los filtros o agrega operaciones</p>
+          </div>
         </div>
+        </section>
       </div>
     </main>
   </body>
