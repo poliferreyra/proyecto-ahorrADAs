@@ -7,12 +7,13 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     />
-
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
+    <!-- favicon para la pestaña de la pagina-->
+    <link rel="icon" type="image/jpg" href="/assets/favicon.png" />
+
     <title>Maquetado AhorrADAs</title>
   </head>
   <body class="has-background-white-ter">
@@ -63,7 +64,6 @@
     <!-- contenedor principal - clase container -->
     <main class="container">
       <!-- div padre para aside y section - clase columns -->
-      
       <div class="columns mt-5">
         <!-- aside - Balance y Filtros - hijo - clase column -->
         <aside class="column is-3 m-2">
@@ -83,7 +83,6 @@
             </div>
             <!-- Total -->
             <div class="columns is-flex">
-              <!-- ganancias-->
               <div class="column">Total</div>
               <div class="column">$0</div>
             </div>
@@ -99,8 +98,7 @@
             <!-- tipo -->
             <div class="mt-5">
               <label class="is-block" for="">Tipo</label>
-
-              <div class="control select">
+              <div class="control select is-fullwidth">
                 <select>
                   <option>Todos</option>
                   <option>Gastos</option>
@@ -111,8 +109,7 @@
             <!-- categoria-->
             <div class="mt-5">
               <label class="is-block" for="">Categoría</label>
-
-              <div class="control select">
+              <div class="control select is-fullwidth">
                 <select>
                   <option>Todos</option>
                   <option>Servicios</option>
@@ -130,8 +127,7 @@
             <!-- ordenado por -->
             <div class="mt-5">
               <label class="is-block" for="">Ordenado por</label>
-
-              <div class="control select">
+              <div class="control select is-fullwidth">
                 <select>
                   <option>Más reciente</option>
                   <option>Menos reciente</option>
@@ -147,27 +143,97 @@
         <!-- section - Operaciones - hijo - clase column -->
         <section class="column is-8 m-2">
           <div class="box">
-          <div class="columns m-2">
-            <div class="column"><h1 class="title is-5">Operaciones</h1></div>
-            <div class="column">
-              <button class="button is-small is-primary">
-                + Agregar operación
-              </button>
+            <div class="columns">
+              <div class="column"><h1 class="title is-5">Operaciones</h1></div>
+              <div class="column">
+                <button class="button is-small is-primary">
+                  + Agregar operación
+                </button>
+              </div>
+            </div>
+            <!-- imagen y texto -->
+            <div>
+              <figure class="image is-128x128">
+                <img src="assets/control-gastos.jpg" />
+              </figure>
+            </div>
+            <div>
+              <h3 class="title is-5 my-6">Sin resultados</h3>
+              <p class="subtitle is-5 my-3">
+                Cambia los filtros o agrega operaciones
+              </p>
             </div>
           </div>
-          <!-- imagen y texto -->
-          <div>
-            <figure class="image is-128x128">
-              <img src="assets/gastos.png" />
-            </figure>
-          </div>
-          <div>
-            <h3 class="title is-4 my-6">Sin resultados</h3>
-            <p class="subtitle is-5 my-3">Cambia los filtros o agrega operaciones</p>
-          </div>
-        </div>
         </section>
       </div>
     </main>
+    <!-- box + Nueva operacion -->
+    <div class="container is-max-desktop">
+      <div class="box my-6">
+        <div>
+          <h2 class="title is-3">Nueva Operacion</h2>
+        </div>
+        <div>
+          <!-- Descripcion -->
+          <div class="field m-4">
+            <label for="descripcion" class="label">Descripción</label>
+            <div class="control">
+              <input
+                id="descripcion"
+                class="input"
+                type="text"
+                placeholder="Descripcion del gasto"
+              />
+            </div>
+          </div>
+          <!-- Monto -->
+          <div class="field m-4">
+            <label for="monto" class="label">Monto</label>
+            <div class="control">
+              <input id="monto" class="input" type="number" placeholder="" />
+            </div>
+          </div>
+          <!-- Tipo -->
+          <div class="field m-4">
+            <label for="tipo" class="label">Tipo</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select>
+                  <option>Gastos</option>
+                  <option>Ganancias</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Categoria -->
+          <div class="field m-4">
+            <label for="categoria" class="label">Categoría</label>
+            <div class="control">
+              <div class="select is-fullwidth">
+                <select>
+                  <option>Comida</option>
+                  <option>Servicios</option>
+                  <option>Salidas</option>
+                  <option>Educación</option>
+                  <option>Transporte</option>
+                  <option>Trabajo</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <!-- Fecha -->
+          <div class="field m-4">
+            <label for="Fecha" class="label">Fecha</label>
+            <div class="control">
+              <input id="Fecha" class="input" type="Date" placeholder="" />
+            </div>
+          </div>
+          <div>
+            <button class="button">Cancelar</button>
+            <button class="button is-primary">Agregar</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
