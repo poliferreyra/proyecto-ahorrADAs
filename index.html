@@ -3,10 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- Font Awesome -->
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
     />
+    <!-- Bulma -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
@@ -18,7 +20,7 @@
   </head>
   <body class="has-background-white-ter">
     <header>
-      <!-- icono y ahorrADAs -->
+      <!-- ENCABEZADO Y NAV LINKS -->
       <nav
         class="navbar has-background-primary"
         role="navigation"
@@ -60,7 +62,7 @@
         </div>
       </nav>
     </header>
-    <!-- BOTON BALANCE -->
+    <!-- NAV BALANCE -->
     <!-- contenedor principal - clase container -->
     <section class="container">
       <!-- div padre para aside y section - clase columns -->
@@ -73,18 +75,28 @@
             <div class="columns is-flex">
               <!-- ganancias-->
               <div class="column">Ganancias</div>
-              <div class="column">+$0</div>
+              <div
+                class="column field is-grouped is-grouped-right has-text-success"
+              >
+                +$0
+              </div>
             </div>
             <!-- Gastos-->
             <div class="columns is-flex">
               <!-- ganancias-->
               <div class="column">Gastos</div>
-              <div class="column">-$0</div>
+              <div
+                class="column field is-grouped is-grouped-right has-text-danger"
+              >
+                -$0
+              </div>
             </div>
             <!-- Total -->
             <div class="columns is-flex">
               <div class="column">Total</div>
-              <div class="column">$0</div>
+              <div class="column field is-grouped is-grouped-right">
+                <strong>$0</strong>
+              </div>
             </div>
           </div>
           <!-- Filtros-->
@@ -93,11 +105,11 @@
               <div class="column">
                 <h2 class="title is-5">Filtros</h2>
               </div>
-              <div class="column is-block"><a href="#">Ocultar Filtros</a></div>
+              <div class="column"><a href="#">Ocultar Filtros</a></div>
             </div>
             <!-- tipo -->
             <div class="mt-5">
-              <label class="is-block" for="">Tipo</label>
+              <label class="label" for="">Tipo</label>
               <div class="control select is-fullwidth">
                 <select>
                   <option>Todos</option>
@@ -108,7 +120,7 @@
             </div>
             <!-- categoria-->
             <div class="mt-5">
-              <label class="is-block" for="">Categoría</label>
+              <label class="label" for="">Categoría</label>
               <div class="control select is-fullwidth">
                 <select>
                   <option>Todos</option>
@@ -121,12 +133,14 @@
             </div>
             <!-- fecha -->
             <div class="mt-5">
-              <label class="is-block" for="">Fecha</label>
-              <input type="date" />
+              <label for="Fecha" class="label">Fecha</label>
+              <div class="control">
+                <input id="Fecha" class="input" type="Date" />
+              </div>
             </div>
             <!-- ordenado por -->
             <div class="mt-5">
-              <label class="is-block" for="">Ordenado por</label>
+              <label class="label" for="">Ordenado por</label>
               <div class="control select is-fullwidth">
                 <select>
                   <option>Más reciente</option>
@@ -145,6 +159,7 @@
           <div class="box">
             <div class="columns">
               <div class="column"><h1 class="title is-5">Operaciones</h1></div>
+              <!-- boton para nueva operacion -->
               <div class="column field is-grouped is-grouped-right">
                 <button class="button is-small is-primary">
                   + Agregar operación
@@ -191,7 +206,7 @@
             <div class="field m-4">
               <label for="monto" class="label">Monto</label>
               <div class="control">
-                <input id="monto" class="input" type="number" placeholder="" />
+                <input id="monto" class="input" type="number" />
               </div>
             </div>
             <!-- Tipo -->
