@@ -24,14 +24,14 @@
     <header>
       <!-- ENCABEZADO Y NAV LINKS -->
       <nav
-        class="navbar has-background-primary"
+        class="navbar has-shadow is-spaced is-primary"
         role="navigation"
         aria-label="main navigation"
       >
         <div class="navbar-brand">
           <a class="navbar-item" href="">
-            <i class="fa-solid fa-wallet fas fa-2x p-2 has-text-white-ter"></i>
-            <h1 class="title is-2 p-2 has-text-white-ter">AhorrADAs</h1>
+            <i class="fa-solid fa-wallet fas fa-2x has-text-white-ter"></i>
+            <h1 class="title is-2 has-text-white-ter">AhorrADAs</h1>
           </a>
           <!-- menu burger -->
           <a
@@ -46,20 +46,29 @@
           </a>
         </div>
         <!-- nav's links -->
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div>
+        <div class="navbar-menu">
+          <div class="navbar-end">
+            <!-- <div class="navbar-item">
               <i class="fas fa-chart-line has-text-white-ter mr-1"></i>
               <a class="has-text-white-ter mr-3">Balance </a>
             </div>
-            <div>
+            <div class="navbar-item">
               <i class="fas fa-tag has-text-white-ter mr-1"></i>
               <a class="has-text-white-ter mr-3"> Categoría </a>
-            </div>
-            <div>
-              <i class="fas fa-chart-pie has-text-white-ter mr-1"></i>
-              <a class="has-text-white-ter mr-3"> Reportes </a>
-            </div>
+            </div> -->
+
+            <a class="navbar-item"
+              ><i class="fas fa-chart-pie mr-1"></i>Reportes
+            </a>
+            <a class="navbar-item"
+              ><i class="fas fa-chart-pie mr-1"></i>Reportes
+            </a>
+            <a class="navbar-item"
+              ><i class="fas fa-chart-pie mr-1"></i>Reportes
+            </a>
+            <a class="navbar-item"
+              ><i class="fas fa-chart-pie mr-1"></i>Reportes
+            </a>
           </div>
         </div>
       </nav>
@@ -171,12 +180,9 @@
               </div>
             </div>
             <!-- operaciones - imagen y texto -->
-            <div class="is-flex is-justify-content-center">
-              <figure class="image">
-                <img src="assets/control-gastos.jpg" />
-              </figure>
-            </div>
-            <div>
+            <div id="operaciones">
+              <img class="image" src="assets/control-gastos.jpg" />
+
               <h3 class="title is-4 my-4 has-text-centered">Sin resultados</h3>
               <p class="subtitle is-6 my-3 has-text-centered">
                 Cambia los filtros o agrega operaciones
@@ -366,5 +372,7 @@
         </div>
       </div>
     </section>
+
+    <script src="main.js"></script>
   </body>
 </html>
