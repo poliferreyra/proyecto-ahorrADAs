@@ -14,6 +14,14 @@ const $contenedorCategoria = $("#contenedor-categoria");
 // nueva operacion
 const $botonNuevaOperacion = $("#boton-agregar-operacion");
 const $boxNuevaOperacion = $("#box-nueva-operacion");
+// box nueva operacion
+const $descripcion = $("#descripcion");
+const $monto = $("#monto");
+const $tipoOperacion = $("#tipo-operacion");
+const $tipoCategoria = $("#tipo-categoria");
+const $fechaOperacion = $("#Fecha-operacion");
+const $btnAgregarOperacion = $("#btnAgregarOperacion");
+const $btnCancelarOperacion = $("#btnCancelarOperacion");
 
 // FUNCIONES
 // navBar
@@ -22,31 +30,31 @@ const toggleIsActive = () => {
   $btnHambur.classList.toggle("is-active");
 };
 
-const nuevaOperacion = () => {
-  $boxNuevaOperacion.classList.toggle("is-hidden")
-  $contenedorBalance.classList.add("is-hidden");
-  $contenedorCategoria.classList.add("is-hidden");
-  $contenedorReportes.classList.add("is-hidden");
-};
-
 // secciones principales
 const vistaBalance = () => {
-  $contenedorBalance.classList.toggle("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
-  $boxNuevaOperacion.classList.add("is-hidden")
+  $boxNuevaOperacion.classList.add("is-hidden");
+  $contenedorBalance.classList.toggle("is-hidden");
 };
 const vistaCategoria = () => {
   $contenedorBalance.classList.add("is-hidden");
-  $contenedorCategoria.classList.toggle("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
-  $boxNuevaOperacion.classList.add("is-hidden")
+  $boxNuevaOperacion.classList.add("is-hidden");
+  $contenedorCategoria.classList.toggle("is-hidden");
 };
 const vistaReportes = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
+  $boxNuevaOperacion.classList.add("is-hidden");
   $contenedorReportes.classList.toggle("is-hidden");
-  $boxNuevaOperacion.classList.add("is-hidden")
+};
+// nueva operacion
+const nuevaOperacion = () => {
+  $contenedorBalance.classList.add("is-hidden");
+  $contenedorCategoria.classList.add("is-hidden");
+  $contenedorReportes.classList.add("is-hidden");
+  $boxNuevaOperacion.classList.toggle("is-hidden");
 };
 
 // EVENTOS
@@ -60,3 +68,4 @@ $botonCategoria.addEventListener("click", vistaCategoria);
 $botonReportes.addEventListener("click", vistaReportes);
 // vista seccion nueva operacion
 $botonNuevaOperacion.addEventListener("click", nuevaOperacion);
+
