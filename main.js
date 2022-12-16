@@ -56,7 +56,10 @@ const nuevaOperacion = () => {
   $contenedorReportes.classList.add("is-hidden");
   $boxNuevaOperacion.classList.toggle("is-hidden");
 };
-
+const cerrarBoxOperacion = ()=>{
+  $boxNuevaOperacion.classList.toggle("is-hidden");
+  $contenedorBalance.classList.toggle("is-hidden");
+}
 // EVENTOS
 // menu hamburguesa
 $btnHambur.addEventListener("click", toggleIsActive);
@@ -68,4 +71,4 @@ $botonCategoria.addEventListener("click", vistaCategoria);
 $botonReportes.addEventListener("click", vistaReportes);
 // vista seccion nueva operacion
 $botonNuevaOperacion.addEventListener("click", nuevaOperacion);
-
+$btnCancelarOperacion.addEventListener("click", cerrarBoxOperacion);
