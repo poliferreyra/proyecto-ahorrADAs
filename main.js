@@ -22,23 +22,31 @@ const toggleIsActive = () => {
   $btnHambur.classList.toggle("is-active");
 };
 
-const nuevaOperacion = () => {};
+const nuevaOperacion = () => {
+  $boxNuevaOperacion.classList.toggle("is-hidden")
+  $contenedorBalance.classList.add("is-hidden");
+  $contenedorCategoria.classList.add("is-hidden");
+  $contenedorReportes.classList.add("is-hidden");
+};
 
 // secciones principales
 const vistaBalance = () => {
   $contenedorBalance.classList.toggle("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
+  $boxNuevaOperacion.classList.add("is-hidden")
 };
 const vistaCategoria = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorCategoria.classList.toggle("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
+  $boxNuevaOperacion.classList.add("is-hidden")
 };
 const vistaReportes = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.toggle("is-hidden");
+  $boxNuevaOperacion.classList.add("is-hidden")
 };
 
 // EVENTOS
@@ -50,5 +58,5 @@ $botonBalance.addEventListener("click", vistaBalance);
 $botonCategoria.addEventListener("click", vistaCategoria);
 // vista reporte
 $botonReportes.addEventListener("click", vistaReportes);
-// vista nueva operacion
+// vista seccion nueva operacion
 $botonNuevaOperacion.addEventListener("click", nuevaOperacion);
