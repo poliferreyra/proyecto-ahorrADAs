@@ -21,8 +21,8 @@
     <title>AhorrADAs</title>
   </head>
   <body class="has-background-white-ter">
+    <!-- ENCABEZADO Y NAV LINKS -->
     <header>
-      <!-- ENCABEZADO Y NAV LINKS -->
       <nav
         class="navbar has-shadow is-spaced is-primary"
         role="navigation"
@@ -48,25 +48,13 @@
         <!-- nav's links -->
         <div class="navbar-menu">
           <div class="navbar-end">
-            <!-- <div class="navbar-item">
-              <i class="fas fa-chart-line has-text-white-ter mr-1"></i>
-              <a class="has-text-white-ter mr-3">Balance </a>
-            </div>
-            <div class="navbar-item">
-              <i class="fas fa-tag has-text-white-ter mr-1"></i>
-              <a class="has-text-white-ter mr-3"> Categoría </a>
-            </div> -->
-
-            <a class="navbar-item"
-              ><i class="fas fa-chart-pie mr-1"></i>Reportes
+            <a id="boton-balance" class="navbar-item"
+              ><i class="fas fa-chart-pie mr-1"></i>Balance
             </a>
-            <a class="navbar-item"
-              ><i class="fas fa-chart-pie mr-1"></i>Reportes
+            <a id="boton-categoria" class="navbar-item"
+              ><i class="fas fa-chart-pie mr-1"></i>Categorías
             </a>
-            <a class="navbar-item"
-              ><i class="fas fa-chart-pie mr-1"></i>Reportes
-            </a>
-            <a class="navbar-item"
+            <a id="reportes" class="navbar-item"
               ><i class="fas fa-chart-pie mr-1"></i>Reportes
             </a>
           </div>
@@ -74,8 +62,8 @@
       </nav>
     </header>
     <!-- BALANCE -->
-    <!-- contenedor principal - clase container -->
-    <section class="container">
+    <!-- contenedor principal -->
+    <section id="contenedor-balance" class="container">
       <!-- DIV PADRE para LATERAL y SECTION - clase columns -->
       <div class="columns mt-5">
         <!-- BARRA LATERAL - Balance y Filtros - clase column -->
@@ -123,9 +111,9 @@
               <label class="label" for="">Tipo</label>
               <div class="control select is-fullwidth">
                 <select>
-                  <option>Todos</option>
-                  <option>Gastos</option>
-                  <option>Ingresos</option>
+                  <option value="todos">Todos</option>
+                  <option value="gastos">Gastos</option>
+                  <option value="ingresos">Ingresos</option>
                 </select>
               </div>
             </div>
@@ -134,13 +122,13 @@
               <label class="label" for="">Categoría</label>
               <div class="control select is-fullwidth">
                 <select>
-                  <option>Todos</option>
-                  <option>Servicios</option>
-                  <option>Salidas</option>
-                  <option>Educación</option>
-                  <option>Transporte</option>
-                  <option>Salario</option>
-                  <option>Compras</option>
+                  <option value="todos">Todos</option>
+                  <option value="servicios">Servicios</option>
+                  <option value="salidas">Salidas</option>
+                  <option value="educacion">Educación</option>
+                  <option value="transporte">Transporte</option>
+                  <option value="salario">Salario</option>
+                  <option value="compras">Compras</option>
                 </select>
               </div>
             </div>
@@ -156,12 +144,12 @@
               <label class="label" for="">Ordenado por</label>
               <div class="control select is-fullwidth">
                 <select>
-                  <option>Más reciente</option>
-                  <option>Menos reciente</option>
-                  <option>Mayor monto</option>
-                  <option>Menor Monto</option>
-                  <option>A/Z</option>
-                  <option>Z/A</option>
+                  <option value="mas-reciente">Más reciente</option>
+                  <option value="menos-reciente">Menos reciente</option>
+                  <option value="mayor-monto">Mayor monto</option>
+                  <option value="menor-monto">Menor Monto</option>
+                  <option value="a-z">A/Z</option>
+                  <option value="z-a">Z/A</option>
                 </select>
               </div>
             </div>
@@ -174,7 +162,10 @@
               <div class="column"><h1 class="title is-5">Operaciones</h1></div>
               <!-- boton para nueva operacion -->
               <div class="column field is-grouped is-grouped-right">
-                <button class="button is-small is-primary">
+                <button
+                  id="boton-agregar-operacion"
+                  class="button is-small is-primary"
+                >
                   + Agregar operación
                 </button>
               </div>
@@ -193,7 +184,7 @@
       </div>
     </section>
     <!-- BOX + NUEVA OPERACION -->
-    <section class="section">
+    <section id="box-nueva-operacion" class="is-hidden section">
       <div class="container column is-8">
         <div class="box my-4">
           <div>
@@ -224,9 +215,9 @@
               <label for="tipo" class="label">Tipo</label>
               <div class="control">
                 <div class="select is-fullwidth">
-                  <select>
-                    <option>Gastos</option>
-                    <option>Ingresos</option>
+                  <select id="tipo-operacion">
+                    <option value="gastos">Gastos</option>
+                    <option value="ingresos">Ingresos</option>
                   </select>
                 </div>
               </div>
@@ -236,14 +227,14 @@
               <label for="categoria" class="label">Categoría</label>
               <div class="control">
                 <div class="select is-fullwidth">
-                  <select>
-                    <option>Comida</option>
-                    <option>Servicios</option>
-                    <option>Salidas</option>
-                    <option>Educación</option>
-                    <option>Transporte</option>
-                    <option>Salario</option>
-                    <option>Compras</option>
+                  <select id="tipo-categoria">
+                    <option value="comida">Comida</option>
+                    <option value="servicios">Servicios</option>
+                    <option value="salidas">Salidas</option>
+                    <option value="educacion">Educación</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="salario">Salario</option>
+                    <option value="compras">Compras</option>
                   </select>
                 </div>
               </div>
@@ -264,7 +255,7 @@
       </div>
     </section>
     <!-- CATEGORIA -->
-    <section class="section">
+    <section id="contenedor-categoria" class="section">
       <div class="container column is-8">
         <div class="box">
           <h2 class="title is-3">Categoría</h2>
@@ -349,7 +340,7 @@
       </div>
     </section>
     <!-- REPORTES -->
-    <section class="section">
+    <section id="contenedor-reportes" class="section">
       <div class="container column is-8">
         <div class="box">
           <div class="columns">
