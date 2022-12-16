@@ -6,7 +6,7 @@ const $navBarEnd = $(".navbar-menu");
 // botones del nav
 const $botonBalance = $("#boton-balance");
 const $botonCategoria = $("#boton-categoria");
-const $botonReporte = $("#boton-reporte");
+const $botonReportes = $("#boton-reportes");
 // secciones principales
 const $contenedorBalance = $("#contenedor-balance");
 const $contenedorReportes = $("#contenedor-reportes");
@@ -22,19 +22,33 @@ const toggleIsActive = () => {
   $btnHambur.classList.toggle("is-active");
 };
 
-const nuevaOperacion = () => {}
-
+const nuevaOperacion = () => {};
 
 // secciones principales
+const vistaBalance = () => {
+  $contenedorBalance.classList.toggle("is-hidden");
+  $contenedorCategoria.classList.add("is-hidden");
+  $contenedorReportes.classList.add("is-hidden");
+};
 const vistaCategoria = () => {
   $contenedorBalance.classList.add("is-hidden");
+  $contenedorCategoria.classList.toggle("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
+};
+const vistaReportes = () => {
+  $contenedorBalance.classList.add("is-hidden");
+  $contenedorCategoria.classList.add("is-hidden");
+  $contenedorReportes.classList.toggle("is-hidden");
 };
 
 // EVENTOS
 // menu hamburguesa
 $btnHambur.addEventListener("click", toggleIsActive);
-// boton categoria - ocultar otras vistas
+// vista balance
+$botonBalance.addEventListener("click", vistaBalance);
+// vista categoria
 $botonCategoria.addEventListener("click", vistaCategoria);
+// vista reporte
+$botonReportes.addEventListener("click", vistaReportes);
 // vista nueva operacion
 $botonNuevaOperacion.addEventListener("click", nuevaOperacion);
