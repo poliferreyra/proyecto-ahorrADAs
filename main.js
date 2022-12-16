@@ -1,5 +1,7 @@
+// funcion maestra
 const $ = (selector) => document.querySelector(selector);
 
+// ELEMENTOS DEL DOM
 // navBar
 const $btnHambur = $(".navbar-burger");
 const $navBarEnd = $(".navbar-menu");
@@ -24,42 +26,42 @@ const $btnAgregarOperacion = $("#btnAgregarOperacion");
 const $btnCancelarOperacion = $("#btnCancelarOperacion");
 
 // FUNCIONES
-// navBar
+// menu hamburguesa
 const toggleIsActive = () => {
   $navBarEnd.classList.toggle("is-active");
   $btnHambur.classList.toggle("is-active");
 };
-
 // secciones principales
 const vistaBalance = () => {
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
   $boxNuevaOperacion.classList.add("is-hidden");
-  $contenedorBalance.classList.toggle("is-hidden");
+  $contenedorBalance.classList.remove("is-hidden");
 };
 const vistaCategoria = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
   $boxNuevaOperacion.classList.add("is-hidden");
-  $contenedorCategoria.classList.toggle("is-hidden");
+  $contenedorCategoria.classList.remove("is-hidden");
 };
 const vistaReportes = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
   $boxNuevaOperacion.classList.add("is-hidden");
-  $contenedorReportes.classList.toggle("is-hidden");
+  $contenedorReportes.classList.remove("is-hidden");
 };
 // nueva operacion
 const nuevaOperacion = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
-  $boxNuevaOperacion.classList.toggle("is-hidden");
+  $boxNuevaOperacion.classList.remove("is-hidden");
 };
-const cerrarBoxOperacion = ()=>{
+const cerrarBoxOperacion = () => {
   $boxNuevaOperacion.classList.toggle("is-hidden");
   $contenedorBalance.classList.toggle("is-hidden");
-}
+};
+
 // EVENTOS
 // menu hamburguesa
 $btnHambur.addEventListener("click", toggleIsActive);
