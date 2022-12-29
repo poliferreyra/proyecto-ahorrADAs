@@ -26,17 +26,21 @@ const $fechaOperacion = $("#Fecha-operacion");
 // botones nueva operacion
 const $btnAgregarOperacion = $("#btnAgregarOperacion");
 const $btnCancelarOperacion = $("#btnCancelarOperacion");
+// vista balance - totales
+const $totalIngresos = $("#total-ingresos");
+const $totalGastos = $("#total-gastos");
+const $saldoTotal = $("#saldo-total");
 
 // array y objeto para nueva operacion
-const listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
-console.log(listaOperaciones)
+const listaOperaciones =
+  JSON.parse(localStorage.getItem("operacionNueva")) || [];
 
 const datosOperacion = {
-  descripcion:"",
-  monto:0,
-  tipo:"",
-  categoria:"",
-  fecha:""
+  descripcion: "",
+  monto: 0,
+  tipo: "",
+  categoria: "",
+  fecha: "",
 };
 
 // FUNCIONES
@@ -64,7 +68,7 @@ const vistaReportes = () => {
   $boxNuevaOperacion.classList.add("is-hidden");
   $contenedorReportes.classList.remove("is-hidden");
 };
-// nueva operacion
+// vista nueva operacion
 const nuevaOperacion = () => {
   $contenedorBalance.classList.add("is-hidden");
   $contenedorCategoria.classList.add("is-hidden");
@@ -76,20 +80,41 @@ const cerrarBoxOperacion = () => {
   $contenedorBalance.classList.toggle("is-hidden");
 };
 // agregar nueva operacion
-const agregarOperaciones =()=>{
-let operacion = {...datosOperacion}
+const agregarOperaciones = () => {
+  let operacion = { ...datosOperacion };
 
-operacion.descripcion = $descripcion.value
-operacion.monto = Number($monto.value)
-operacion.tipo = $tipoOperacion.value
-operacion.categoria = $tipoCategoria.value
-operacion.fecha = $fechaOperacion.value
+  operacion.descripcion = $descripcion.value;
+  operacion.monto = Number($monto.value);
+  operacion.tipo = $tipoOperacion.value;
+  operacion.categoria = $tipoCategoria.value;
+  operacion.fecha = $fechaOperacion.value;
 
-listaOperaciones.push(operacion)
-console.log(listaOperaciones)
+  listaOperaciones.push(operacion);
+  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+};
+// vista balance - totales
+const montoIngresos = listaOperaciones
+  .filter((ingresos) => ingresos.tipo === "ingresos")
+  .map((valor) => valor.monto);
+const totalIngresos = montoIngresos.reduce(
+  (valorIn, valorAc) => valorIn + valorAc,
+  0
+);
+const montoGastos = listaOperaciones
+  .filter((ingresos) => ingresos.tipo === "gastos")
+  .map((valor) => valor.monto);
+const totalGastos = montoGastos.reduce(
+  (valorIn, valorAc) => valorIn + valorAc,
+  0
+);
+const totalGral = totalIngresos - totalGastos;
 
-localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones))
-}
+const mostrarValores = () => {
+  $totalIngresos.innerText = totalIngresos;
+  $totalGastos.innerText = totalGastos;
+  $saldoTotal.innerText = totalGral;
+};
+mostrarValores();
 
 // EVENTOS
 // menu hamburguesa
@@ -104,4 +129,4 @@ $botonReportes.addEventListener("click", vistaReportes);
 $botonNuevaOperacion.addEventListener("click", nuevaOperacion);
 $btnCancelarOperacion.addEventListener("click", cerrarBoxOperacion);
 // agregar nueva operacion
-$btnAgregarOperacion.addEventListener("click", agregarOperaciones)
+$btnAgregarOperacion.addEventListener("click", agregarOperaciones);
