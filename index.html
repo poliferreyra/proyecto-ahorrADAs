@@ -70,9 +70,9 @@
         <section class="section column is-4">
           <div class="box">
             <h2 class="title is-4">Balance</h2>
-            <!-- div's - ganancias - gastos - total -->
+            <!-- div's - ingresos - gastos - total -->
             <div class="columns is-flex">
-              <!-- ganancias-->
+              <!-- ingresos-->
               <div class="column">Ingresos</div>
               <div
                 class="column field is-grouped is-grouped-right has-text-success"
@@ -82,7 +82,6 @@
             </div>
             <!-- Gastos-->
             <div class="columns is-flex">
-              <!-- ganancias-->
               <div class="column">Gastos</div>
               <div
                 class="column field is-grouped is-grouped-right has-text-danger"
@@ -100,57 +99,65 @@
           </div>
           <!-- Filtros-->
           <div class="box mt-6">
+            <!-- H2 y ocultar filtros -->
             <div class="columns is-flex">
               <div class="column">
                 <h2 class="title is-5">Filtros</h2>
               </div>
-              <div class="column"><a href="#">Ocultar Filtros</a></div>
-            </div>
-            <!-- tipo -->
-            <div class="mt-5">
-              <label class="label" for="">Tipo</label>
-              <div class="control select is-fullwidth">
-                <select>
-                  <option value="todos">Todos</option>
-                  <option value="gastos">Gastos</option>
-                  <option value="ingresos">Ingresos</option>
-                </select>
+              <div class="ocultar-filtros column">
+                <a href="#"
+                  ><span id="ocultar-filtros-txt">Ocultar Filtros</span></a
+                >
               </div>
             </div>
-            <!-- categoria-->
-            <div class="mt-5">
-              <label class="label" for="">Categoría</label>
-              <div class="control select is-fullwidth">
-                <select>
-                  <option value="todos">Todos</option>
-                  <option value="servicios">Servicios</option>
-                  <option value="salidas">Salidas</option>
-                  <option value="educacion">Educación</option>
-                  <option value="transporte">Transporte</option>
-                  <option value="salario">Salario</option>
-                  <option value="compras">Compras</option>
-                </select>
+            <!-- Div contenedor de filtros -->
+            <div id="contenedor-filtros">
+              <!-- tipo -->
+              <div class="mt-5">
+                <label class="label" for="">Tipo</label>
+                <div class="control select is-fullwidth">
+                  <select>
+                    <option value="todos">Todos</option>
+                    <option value="gastos">Gastos</option>
+                    <option value="ingresos">Ingresos</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <!-- fecha -->
-            <div class="mt-5">
-              <label for="Fecha" class="label">Fecha</label>
-              <div class="control">
-                <input id="Fecha" class="input" type="Date" />
+              <!-- categoria-->
+              <div class="mt-5">
+                <label class="label" for="">Categoría</label>
+                <div class="control select is-fullwidth">
+                  <select>
+                    <option value="todos">Todos</option>
+                    <option value="servicios">Servicios</option>
+                    <option value="salidas">Salidas</option>
+                    <option value="educacion">Educación</option>
+                    <option value="transporte">Transporte</option>
+                    <option value="salario">Salario</option>
+                    <option value="compras">Compras</option>
+                  </select>
+                </div>
               </div>
-            </div>
-            <!-- ordenado por -->
-            <div class="mt-5">
-              <label class="label" for="">Ordenado por</label>
-              <div class="control select is-fullwidth">
-                <select>
-                  <option value="mas-reciente">Más reciente</option>
-                  <option value="menos-reciente">Menos reciente</option>
-                  <option value="mayor-monto">Mayor monto</option>
-                  <option value="menor-monto">Menor Monto</option>
-                  <option value="a-z">A/Z</option>
-                  <option value="z-a">Z/A</option>
-                </select>
+              <!-- fecha -->
+              <div class="mt-5">
+                <label for="Fecha" class="label">Fecha</label>
+                <div class="control">
+                  <input id="Fecha" class="input" type="Date" />
+                </div>
+              </div>
+              <!-- ordenado por -->
+              <div class="mt-5">
+                <label class="label" for="">Ordenado por</label>
+                <div class="control select is-fullwidth">
+                  <select>
+                    <option value="mas-reciente">Más reciente</option>
+                    <option value="menos-reciente">Menos reciente</option>
+                    <option value="mayor-monto">Mayor monto</option>
+                    <option value="menor-monto">Menor Monto</option>
+                    <option value="a-z">A/Z</option>
+                    <option value="z-a">Z/A</option>
+                  </select>
+                </div>
               </div>
             </div>
           </div>
@@ -243,12 +250,21 @@
             <div class="field m-4">
               <label for="Fecha" class="label">Fecha</label>
               <div class="control">
-                <input id="Fecha-operacion" class="input" type="Date" placeholder="" />
+                <input
+                  id="Fecha-operacion"
+                  class="input"
+                  type="Date"
+                  placeholder=""
+                />
               </div>
             </div>
             <div class="field is-grouped is-grouped-right">
-              <button id="btnCancelarOperacion" class="button m-2">Cancelar</button>
-              <button id="btnAgregarOperacion" class="button is-primary m-2">Agregar</button>
+              <button id="btnCancelarOperacion" class="button m-2">
+                Cancelar
+              </button>
+              <button id="btnAgregarOperacion" class="button is-primary m-2">
+                Agregar
+              </button>
             </div>
           </div>
         </div>

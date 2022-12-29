@@ -30,6 +30,10 @@ const $btnCancelarOperacion = $("#btnCancelarOperacion");
 const $totalIngresos = $("#total-ingresos");
 const $totalGastos = $("#total-gastos");
 const $saldoTotal = $("#saldo-total");
+// filtros
+const $ocultarFiltros = $(".ocultar-filtros");
+const $contenedorFiltros = $("#contenedor-filtros");
+const $ocultarFiltrosTxt = $("#ocultar-filtros-txt");
 
 // array y objeto para nueva operacion
 const listaOperaciones =
@@ -91,6 +95,8 @@ const agregarOperaciones = () => {
 
   listaOperaciones.push(operacion);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+  // mostrarValores() ----  no estaría actualizando los valores de manera automática ❌
+  vistaBalance();
 };
 // vista balance - totales
 const montoIngresos = listaOperaciones
@@ -115,6 +121,16 @@ const mostrarValores = () => {
   $saldoTotal.innerText = totalGral;
 };
 mostrarValores();
+// filtros
+const ocultarFiltros = () => {
+  if ($ocultarFiltrosTxt.innerText === "Ocultar Filtros") {
+    $contenedorFiltros.classList.add("is-hidden");
+    $ocultarFiltrosTxt.innerText = "Mostrar Filtros";
+  } else {
+    $contenedorFiltros.classList.remove("is-hidden");
+    $ocultarFiltrosTxt.innerText = "Ocultar Filtros";
+  }
+};
 
 // EVENTOS
 // menu hamburguesa
@@ -130,3 +146,5 @@ $botonNuevaOperacion.addEventListener("click", nuevaOperacion);
 $btnCancelarOperacion.addEventListener("click", cerrarBoxOperacion);
 // agregar nueva operacion
 $btnAgregarOperacion.addEventListener("click", agregarOperaciones);
+// filtros
+$ocultarFiltros.addEventListener("click", ocultarFiltros);
