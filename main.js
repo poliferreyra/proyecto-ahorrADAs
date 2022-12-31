@@ -1,6 +1,6 @@
 // funcion maestra
 const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector); // pendiente optimizar vistas
+const $$ = (selector) => document.querySelectorAll(selector);
 
 // ELEMENTOS DEL DOM
 // navBar
@@ -14,6 +14,8 @@ const $botonReportes = $("#boton-reportes");
 const $contenedorBalance = $("#contenedor-balance");
 const $contenedorReportes = $("#contenedor-reportes");
 const $contenedorCategoria = $("#contenedor-categoria");
+// div central vista balance - imagen y texto
+const $boxCtlVBalance = $("#operaciones");
 // nueva operacion
 const $botonNuevaOperacion = $("#boton-agregar-operacion");
 const $boxNuevaOperacion = $("#box-nueva-operacion");
@@ -30,10 +32,17 @@ const $btnCancelarOperacion = $("#btnCancelarOperacion");
 const $totalIngresos = $("#total-ingresos");
 const $totalGastos = $("#total-gastos");
 const $saldoTotal = $("#saldo-total");
+let $detalleOperaciones = $("#detalle-operaciones");
+const $titulosDetalle = $("#titulos-detalle");
+console.log($titulosDetalle)
 // filtros
 const $ocultarFiltros = $(".ocultar-filtros");
 const $contenedorFiltros = $("#contenedor-filtros");
 const $ocultarFiltrosTxt = $("#ocultar-filtros-txt");
+const $filtroTipo = $("#filtro-tipo");
+const $filtroCategoria = $("#filtro-categoria");
+const $filtroFecha = $("#filtro-fecha");
+const $filtroOrdenX = $("#filtro-ordenX");
 
 // array y objeto para nueva operacion
 const listaOperaciones =
@@ -54,6 +63,7 @@ const toggleIsActive = () => {
   $btnHambur.classList.toggle("is-active");
 };
 // secciones principales
+// ver querySelectorAll xa optimizar ❌
 const vistaBalance = () => {
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
@@ -95,7 +105,6 @@ const agregarOperaciones = () => {
 
   listaOperaciones.push(operacion);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
-  // mostrarValores() ----  no estaría actualizando los valores de manera automática ❌
   vistaBalance();
 };
 // vista balance - totales
@@ -116,11 +125,12 @@ const totalGastos = montoGastos.reduce(
 const totalGral = totalIngresos - totalGastos;
 
 const mostrarValores = () => {
-  $totalIngresos.innerText = totalIngresos;
-  $totalGastos.innerText = totalGastos;
-  $saldoTotal.innerText = totalGral;
+  $totalIngresos.innerText = `$ ${totalIngresos}`;
+  $totalGastos.innerText = `$ ${totalGastos}`;
+  $saldoTotal.innerText = `$ ${totalGral}`;
 };
 mostrarValores();
+// mostrarValores() ----  no estaría actualizando los valores de manera automática ❌
 // filtros
 const ocultarFiltros = () => {
   if ($ocultarFiltrosTxt.innerText === "Ocultar Filtros") {
@@ -129,6 +139,48 @@ const ocultarFiltros = () => {
   } else {
     $contenedorFiltros.classList.remove("is-hidden");
     $ocultarFiltrosTxt.innerText = "Ocultar Filtros";
+  }
+};
+// mostrar detalle de operaciones en vista balance
+let detalle;
+const filtros = () => {
+  detalle = listaOperaciones;
+  if ($filtroTipo.value !== "todos") {
+    detalle = listaOperaciones.filter(
+      (dato) => dato.tipo === $filtroTipo.value
+      );
+    }
+    if ($filtroCategoria.value !== "todos") {
+      detalle = detalle.filter(
+        (dato) => dato.categoria === $filtroCategoria.value
+        );
+      }
+      $boxCtlVBalance.classList.add("is-hidden");
+      mostrarDetalle();
+    };
+    const mostrarDetalle = () => {
+  $titulosDetalle.classList.remove("is-hidden");
+  $detalleOperaciones.innerHTML = "";
+  for (const { descripcion, categoria, fecha, monto } of detalle) {
+    $detalleOperaciones.innerHTML += `
+    <!-- Contenido tabla -->
+    <div class="container">
+    <div class="columns">
+    <div class="column">${descripcion}</div>
+    <div class="column">
+    <span class="tag is-primary is-light">
+    ${categoria}
+    </span>
+    </div>
+    <div class="column">${fecha}</div>
+    <div class="column">$ ${monto}</div>
+    <div class="is-flex is-flex-direction-column column">
+    <a class="is-size-7" href="">Editar</a>
+    <a class="is-size-7" href="">Eliminar</a>
+    </div>
+    </div>
+    </div>
+    `;
   }
 };
 
@@ -148,3 +200,5 @@ $btnCancelarOperacion.addEventListener("click", cerrarBoxOperacion);
 $btnAgregarOperacion.addEventListener("click", agregarOperaciones);
 // filtros
 $ocultarFiltros.addEventListener("click", ocultarFiltros);
+$filtroTipo.addEventListener("input", filtros);
+$filtroCategoria.addEventListener("input", filtros);

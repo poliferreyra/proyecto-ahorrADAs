@@ -116,7 +116,7 @@
               <div class="mt-5">
                 <label class="label" for="">Tipo</label>
                 <div class="control select is-fullwidth">
-                  <select>
+                  <select id="filtro-tipo">
                     <option value="todos">Todos</option>
                     <option value="gastos">Gastos</option>
                     <option value="ingresos">Ingresos</option>
@@ -127,7 +127,7 @@
               <div class="mt-5">
                 <label class="label" for="">Categoría</label>
                 <div class="control select is-fullwidth">
-                  <select>
+                  <select id="filtro-categoria">
                     <option value="todos">Todos</option>
                     <option value="servicios">Servicios</option>
                     <option value="salidas">Salidas</option>
@@ -140,16 +140,21 @@
               </div>
               <!-- fecha -->
               <div class="mt-5">
-                <label for="Fecha" class="label">Fecha</label>
+                <label for="filtro-Fecha" class="label">Fecha</label>
                 <div class="control">
-                  <input id="Fecha" class="input" type="Date" />
+                  <input
+                    id="filtro-Fecha"
+                    class="input"
+                    type="Date"
+                    value="2022-12-01"
+                  />
                 </div>
               </div>
               <!-- ordenado por -->
               <div class="mt-5">
                 <label class="label" for="">Ordenado por</label>
                 <div class="control select is-fullwidth">
-                  <select>
+                  <select id="filtro-ordenX">
                     <option value="mas-reciente">Más reciente</option>
                     <option value="menos-reciente">Menos reciente</option>
                     <option value="mayor-monto">Mayor monto</option>
@@ -162,9 +167,10 @@
             </div>
           </div>
         </section>
-        <!-- SECCION CENTRAL - Operaciones - clase column -->
+        <!-- SECCION CENTRAL - Operaciones -->
         <section class="section column is-8">
           <div class="box">
+            <!-- Titulo y boton -->
             <div class="columns">
               <div class="column"><h1 class="title is-5">Operaciones</h1></div>
               <!-- boton para nueva operacion -->
@@ -177,7 +183,20 @@
                 </button>
               </div>
             </div>
-            <!-- operaciones - imagen y texto -->
+            <!-- contenedor para detalle operaciones -->
+            <!-- Encabezado tabla -->
+            <div class="container">
+              <div id="titulos-detalle" class="columns is-hidden">
+                <div class="has-text-weight-bold column">Descripción</div>
+                <div class="has-text-weight-bold column">Categoría</div>
+                <div class="has-text-weight-bold column">Fecha</div>
+                <div class="has-text-weight-bold column">Monto</div>
+                <div class="has-text-weight-bold column">Acciones</div>
+              </div>
+            </div> 
+            <div id="detalle-operaciones">
+            </div>
+            <!-- Imagen y texto -->
             <div id="operaciones">
               <img class="image" src="assets/control-gastos.jpg" />
 
