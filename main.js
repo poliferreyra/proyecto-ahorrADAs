@@ -34,7 +34,6 @@ const $totalGastos = $("#total-gastos");
 const $saldoTotal = $("#saldo-total");
 let $detalleOperaciones = $("#detalle-operaciones");
 const $titulosDetalle = $("#titulos-detalle");
-console.log($titulosDetalle)
 // filtros
 const $ocultarFiltros = $(".ocultar-filtros");
 const $contenedorFiltros = $("#contenedor-filtros");
@@ -145,20 +144,45 @@ const ocultarFiltros = () => {
 let detalle;
 const filtros = () => {
   detalle = listaOperaciones;
+  // primero filtra por tipo de operacion
   if ($filtroTipo.value !== "todos") {
     detalle = listaOperaciones.filter(
       (dato) => dato.tipo === $filtroTipo.value
-      );
-    }
-    if ($filtroCategoria.value !== "todos") {
-      detalle = detalle.filter(
-        (dato) => dato.categoria === $filtroCategoria.value
-        );
-      }
-      $boxCtlVBalance.classList.add("is-hidden");
-      mostrarDetalle();
-    };
-    const mostrarDetalle = () => {
+    );
+  }
+  // del resultante ⬆ filtra por categoria
+  if ($filtroCategoria.value !== "todos") {
+    detalle = detalle.filter(
+      (dato) => dato.categoria === $filtroCategoria.value
+    );
+  }
+  // filta por fecha
+  detalle = detalle.filter((dato) => new Date(dato.fecha) >= new Date($filtroFecha.value));
+  // filtra por orden
+  if($filtroOrdenX.value === "menosReciente"){
+    detalle = detalle.sort((a, b)=> new Date(a.fecha) - new Date(b.fecha));
+  }
+  if($filtroOrdenX.value === "masReciente"){
+    detalle = detalle.sort((a, b)=> new Date(b.fecha) - new Date(a.fecha));
+  }
+  if($filtroOrdenX.value === "mayorMonto"){
+    detalle = detalle.sort((a, b)=> b.monto - a.monto);
+  }
+  if($filtroOrdenX.value === "menorMonto"){
+    detalle = detalle.sort((a, b)=> a.monto - b.monto);
+  }
+  if($filtroOrdenX.value === "ordenAZ"){
+    detalle = detalle.sort((a, b)=> a.categoria.localeCompare(b.categoria));
+  }
+  if($filtroOrdenX.value === "ordenZA"){
+   detalle = detalle.sort((a, b)=> b.categoria.localeCompare(a.categoria));
+  }
+
+  $boxCtlVBalance.classList.add("is-hidden");
+  mostrarDetalle();
+};
+
+const mostrarDetalle = () => {
   $titulosDetalle.classList.remove("is-hidden");
   $detalleOperaciones.innerHTML = "";
   for (const { descripcion, categoria, fecha, monto } of detalle) {
@@ -202,3 +226,5 @@ $btnAgregarOperacion.addEventListener("click", agregarOperaciones);
 $ocultarFiltros.addEventListener("click", ocultarFiltros);
 $filtroTipo.addEventListener("input", filtros);
 $filtroCategoria.addEventListener("input", filtros);
+$filtroFecha.addEventListener("input", filtros);
+$filtroOrdenX.addEventListener("input", filtros)

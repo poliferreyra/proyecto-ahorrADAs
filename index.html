@@ -140,14 +140,9 @@
               </div>
               <!-- fecha -->
               <div class="mt-5">
-                <label for="filtro-Fecha" class="label">Fecha</label>
+                <label for="filtro-fecha" class="label">Fecha</label>
                 <div class="control">
-                  <input
-                    id="filtro-Fecha"
-                    class="input"
-                    type="Date"
-                    value="2022-12-01"
-                  />
+                  <input id="filtro-fecha" class="input" type="Date" />
                 </div>
               </div>
               <!-- ordenado por -->
@@ -155,12 +150,12 @@
                 <label class="label" for="">Ordenado por</label>
                 <div class="control select is-fullwidth">
                   <select id="filtro-ordenX">
-                    <option value="mas-reciente">Más reciente</option>
-                    <option value="menos-reciente">Menos reciente</option>
-                    <option value="mayor-monto">Mayor monto</option>
-                    <option value="menor-monto">Menor Monto</option>
-                    <option value="a-z">A/Z</option>
-                    <option value="z-a">Z/A</option>
+                    <option value="masReciente">Más reciente</option>
+                    <option value="menosReciente">Menos reciente</option>
+                    <option value="mayorMonto">Mayor monto</option>
+                    <option value="menorMonto">Menor Monto</option>
+                    <option value="ordenAZ">A/Z</option>
+                    <option value="ordenZA">Z/A</option>
                   </select>
                 </div>
               </div>
@@ -193,9 +188,8 @@
                 <div class="has-text-weight-bold column">Monto</div>
                 <div class="has-text-weight-bold column">Acciones</div>
               </div>
-            </div> 
-            <div id="detalle-operaciones">
             </div>
+            <div id="detalle-operaciones"></div>
             <!-- Imagen y texto -->
             <div id="operaciones">
               <img class="image" src="assets/control-gastos.jpg" />
