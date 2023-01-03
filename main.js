@@ -70,6 +70,7 @@ const cerrarVistas = () => {
 const vistaBalance = () => {
   cerrarVistas();
   $contenedorBalance.classList.remove("is-hidden");
+  mostrarValores();
 };
 const vistaCategoria = () => {
   cerrarVistas();
@@ -88,28 +89,27 @@ const cerrarBoxOperacion = () => {
   $contenedorBalance.classList.toggle("is-hidden");
 };
 // vista balance - totales
-const montoIngresos = listaOperaciones
-  .filter((ingresos) => ingresos.tipo === "ingresos")
-  .map((valor) => valor.monto);
-const totalIngresos = montoIngresos.reduce(
-  (valorIn, valorAc) => valorIn + valorAc,
-  0
-);
-const montoGastos = listaOperaciones
-  .filter((ingresos) => ingresos.tipo === "gastos")
-  .map((valor) => valor.monto);
-const totalGastos = montoGastos.reduce(
-  (valorIn, valorAc) => valorIn + valorAc,
-  0
-);
-const totalGral = totalIngresos - totalGastos;
-
 const mostrarValores = () => {
+  const montoIngresos = listaOperaciones
+    .filter((ingresos) => ingresos.tipo === "ingresos")
+    .map((valor) => valor.monto);
+  const totalIngresos = montoIngresos.reduce(
+    (valorIn, valorAc) => valorIn + valorAc,
+    0
+  );
+  const montoGastos = listaOperaciones
+    .filter((ingresos) => ingresos.tipo === "gastos")
+    .map((valor) => valor.monto);
+  const totalGastos = montoGastos.reduce(
+    (valorIn, valorAc) => valorIn + valorAc,
+    0
+  );
+  const totalGral = totalIngresos - totalGastos;
+
   $totalIngresos.innerText = `$ ${totalIngresos}`;
   $totalGastos.innerText = `$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
 };
-// mostrarValores() ----  no estaría actualizando los valores de manera automática ❌
 // agregar nueva operacion
 const agregarOperaciones = () => {
   let operacion = { ...datosOperacion };
@@ -123,7 +123,6 @@ const agregarOperaciones = () => {
   listaOperaciones.push(operacion);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
   vistaBalance();
-  mostrarValores();
 };
 // filtros
 const ocultarFiltros = () => {
@@ -206,12 +205,11 @@ const mostrarDetalle = () => {
     `;
   }
 };
-const inicioApp = ()=>{
+const inicioApp = () => {
   cerrarVistas();
   vistaBalance();
-  mostrarValores();
 };
-inicioApp()
+inicioApp();
 
 // EVENTOS
 // menu hamburguesa
