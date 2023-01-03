@@ -1,6 +1,5 @@
 // funcion maestra
 const $ = (selector) => document.querySelector(selector);
-const $$ = (selector) => document.querySelectorAll(selector);
 
 // ELEMENTOS DEL DOM
 // navBar
@@ -61,50 +60,32 @@ const toggleIsActive = () => {
   $navBarEnd.classList.toggle("is-active");
   $btnHambur.classList.toggle("is-active");
 };
-// secciones principales
-// ver querySelectorAll xa optimizar ❌
-const vistaBalance = () => {
+// secciones principales - vistas
+const cerrarVistas = () => {
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
+  $contenedorBalance.classList.add("is-hidden");
   $boxNuevaOperacion.classList.add("is-hidden");
+};
+const vistaBalance = () => {
+  cerrarVistas();
   $contenedorBalance.classList.remove("is-hidden");
 };
 const vistaCategoria = () => {
-  $contenedorBalance.classList.add("is-hidden");
-  $contenedorReportes.classList.add("is-hidden");
-  $boxNuevaOperacion.classList.add("is-hidden");
+  cerrarVistas();
   $contenedorCategoria.classList.remove("is-hidden");
 };
 const vistaReportes = () => {
-  $contenedorBalance.classList.add("is-hidden");
-  $contenedorCategoria.classList.add("is-hidden");
-  $boxNuevaOperacion.classList.add("is-hidden");
+  cerrarVistas();
   $contenedorReportes.classList.remove("is-hidden");
 };
-// vista nueva operacion
 const nuevaOperacion = () => {
-  $contenedorBalance.classList.add("is-hidden");
-  $contenedorCategoria.classList.add("is-hidden");
-  $contenedorReportes.classList.add("is-hidden");
+  cerrarVistas();
   $boxNuevaOperacion.classList.remove("is-hidden");
 };
 const cerrarBoxOperacion = () => {
   $boxNuevaOperacion.classList.toggle("is-hidden");
   $contenedorBalance.classList.toggle("is-hidden");
-};
-// agregar nueva operacion
-const agregarOperaciones = () => {
-  let operacion = { ...datosOperacion };
-
-  operacion.descripcion = $descripcion.value;
-  operacion.monto = Number($monto.value);
-  operacion.tipo = $tipoOperacion.value;
-  operacion.categoria = $tipoCategoria.value;
-  operacion.fecha = $fechaOperacion.value;
-
-  listaOperaciones.push(operacion);
-  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
-  vistaBalance();
 };
 // vista balance - totales
 const montoIngresos = listaOperaciones
@@ -128,8 +109,22 @@ const mostrarValores = () => {
   $totalGastos.innerText = `$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
 };
-mostrarValores();
 // mostrarValores() ----  no estaría actualizando los valores de manera automática ❌
+// agregar nueva operacion
+const agregarOperaciones = () => {
+  let operacion = { ...datosOperacion };
+
+  operacion.descripcion = $descripcion.value;
+  operacion.monto = Number($monto.value);
+  operacion.tipo = $tipoOperacion.value;
+  operacion.categoria = $tipoCategoria.value;
+  operacion.fecha = $fechaOperacion.value;
+
+  listaOperaciones.push(operacion);
+  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+  vistaBalance();
+  mostrarValores();
+};
 // filtros
 const ocultarFiltros = () => {
   if ($ocultarFiltrosTxt.innerText === "Ocultar Filtros") {
@@ -157,31 +152,35 @@ const filtros = () => {
     );
   }
   // filta por fecha
-  detalle = detalle.filter((dato) => new Date(dato.fecha) >= new Date($filtroFecha.value));
+  detalle = detalle.filter(
+    (dato) => new Date(dato.fecha) >= new Date($filtroFecha.value)
+  );
   // filtra por orden
-  if($filtroOrdenX.value === "menosReciente"){
-    detalle = detalle.sort((a, b)=> new Date(a.fecha) - new Date(b.fecha));
+  if ($filtroOrdenX.value === "menosReciente") {
+    detalle = detalle.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
   }
-  if($filtroOrdenX.value === "masReciente"){
-    detalle = detalle.sort((a, b)=> new Date(b.fecha) - new Date(a.fecha));
+  if ($filtroOrdenX.value === "masReciente") {
+    detalle = detalle.sort((a, b) => new Date(b.fecha) - new Date(a.fecha));
   }
-  if($filtroOrdenX.value === "mayorMonto"){
-    detalle = detalle.sort((a, b)=> b.monto - a.monto);
+  if ($filtroOrdenX.value === "mayorMonto") {
+    detalle = detalle.sort((a, b) => b.monto - a.monto);
   }
-  if($filtroOrdenX.value === "menorMonto"){
-    detalle = detalle.sort((a, b)=> a.monto - b.monto);
+  if ($filtroOrdenX.value === "menorMonto") {
+    detalle = detalle.sort((a, b) => a.monto - b.monto);
   }
-  if($filtroOrdenX.value === "ordenAZ"){
-    detalle = detalle.sort((a, b)=> a.categoria.localeCompare(b.categoria));
+  if ($filtroOrdenX.value === "ordenAZ") {
+    detalle = detalle.sort((a, b) =>
+      a.descripcion.localeCompare(b.descripcion)
+    );
   }
-  if($filtroOrdenX.value === "ordenZA"){
-   detalle = detalle.sort((a, b)=> b.categoria.localeCompare(a.categoria));
+  if ($filtroOrdenX.value === "ordenZA") {
+    detalle = detalle.sort((a, b) =>
+      b.descripcion.localeCompare(a.descripcion)
+    );
   }
-
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle();
 };
-
 const mostrarDetalle = () => {
   $titulosDetalle.classList.remove("is-hidden");
   $detalleOperaciones.innerHTML = "";
@@ -207,6 +206,12 @@ const mostrarDetalle = () => {
     `;
   }
 };
+const inicioApp = ()=>{
+  cerrarVistas();
+  vistaBalance();
+  mostrarValores();
+};
+inicioApp()
 
 // EVENTOS
 // menu hamburguesa
@@ -227,4 +232,4 @@ $ocultarFiltros.addEventListener("click", ocultarFiltros);
 $filtroTipo.addEventListener("input", filtros);
 $filtroCategoria.addEventListener("input", filtros);
 $filtroFecha.addEventListener("input", filtros);
-$filtroOrdenX.addEventListener("input", filtros)
+$filtroOrdenX.addEventListener("input", filtros);
