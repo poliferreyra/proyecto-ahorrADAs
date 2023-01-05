@@ -45,6 +45,7 @@ const $filtroOrdenX = $("#filtro-ordenX");
 // array y objeto para nueva operacion
 const listaOperaciones =
   JSON.parse(localStorage.getItem("operacionNueva")) || [];
+  console.log(listaOperaciones)
 
 const datosOperacion = {
   descripcion: "",
@@ -118,11 +119,13 @@ const agregarOperaciones = () => {
   operacion.tipo = $tipoOperacion.value;
   operacion.categoria = $tipoCategoria.value;
   operacion.fecha = $fechaOperacion.value;
+  operacion.id = self.crypto.randomUUID();
 
   listaOperaciones.push(operacion);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
   vistaBalance();
   mostrarValores();
+  
 };
 // filtros
 const ocultarFiltros = () => {
