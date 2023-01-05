@@ -70,7 +70,6 @@ const cerrarVistas = () => {
 const vistaBalance = () => {
   cerrarVistas();
   $contenedorBalance.classList.remove("is-hidden");
-  mostrarValores();
 };
 const vistaCategoria = () => {
   cerrarVistas();
@@ -123,6 +122,7 @@ const agregarOperaciones = () => {
   listaOperaciones.push(operacion);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
   vistaBalance();
+  mostrarValores();
 };
 // filtros
 const ocultarFiltros = () => {
@@ -134,7 +134,7 @@ const ocultarFiltros = () => {
     $ocultarFiltrosTxt.innerText = "Ocultar Filtros";
   }
 };
-// mostrar detalle de operaciones en vista balance
+// filtrar y mostrar detalle de operaciones en vista balance
 let detalle;
 const filtros = () => {
   detalle = listaOperaciones;
@@ -144,7 +144,7 @@ const filtros = () => {
       (dato) => dato.tipo === $filtroTipo.value
     );
   }
-  // del resultante ⬆ filtra por categoria
+  // del resultante ⬆ filtra por...
   if ($filtroCategoria.value !== "todos") {
     detalle = detalle.filter(
       (dato) => dato.categoria === $filtroCategoria.value
@@ -172,6 +172,8 @@ const filtros = () => {
       a.descripcion.localeCompare(b.descripcion)
     );
   }
+  // localeCompere -- devuelve un número que indica si una cadena de referencia viene antes o después, o es la misma
+  //independientemente de may - min o caracteres especiales
   if ($filtroOrdenX.value === "ordenZA") {
     detalle = detalle.sort((a, b) =>
       b.descripcion.localeCompare(a.descripcion)
@@ -196,18 +198,23 @@ const mostrarDetalle = () => {
     </div>
     <div class="column">${fecha}</div>
     <div class="column">$ ${monto}</div>
-    <div class="is-flex is-flex-direction-column column">
-    <a class="is-size-7" href="">Editar</a>
-    <a class="is-size-7" href="">Eliminar</a>
+    <div class="column is-size-7 is-flex">
+    <button class="button is-ghost is-small">Editar</button>
+    <button class="button is-ghost is-small">Eliminar</button>
     </div>
     </div>
     </div>
     `;
   }
 };
+// editar y eliminar
+
+
+// inicio App
 const inicioApp = () => {
   cerrarVistas();
   vistaBalance();
+  mostrarValores();
 };
 inicioApp();
 
