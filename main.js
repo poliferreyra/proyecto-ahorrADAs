@@ -45,7 +45,6 @@ const $filtroOrdenX = $("#filtro-ordenX");
 // array y objeto para nueva operacion
 const listaOperaciones =
   JSON.parse(localStorage.getItem("operacionNueva")) || [];
-  console.log(listaOperaciones)
 
 const datosOperacion = {
   descripcion: "",
@@ -125,7 +124,6 @@ const agregarOperaciones = () => {
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
   vistaBalance();
   mostrarValores();
-  
 };
 // filtros
 const ocultarFiltros = () => {
@@ -185,13 +183,19 @@ const filtros = () => {
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle();
 };
+// editar y eliminar
+const eliminarItem = () => {
+  alert("ESTA FUNCIONANDO ONCLICK!!!");
+};
 const mostrarDetalle = () => {
+  // creo contenedor
+  let divContainer = document.createElement("div");
+  divContainer.classList.add("container");
   $titulosDetalle.classList.remove("is-hidden");
-  $detalleOperaciones.innerHTML = "";
-  for (const { descripcion, categoria, fecha, monto } of detalle) {
-    $detalleOperaciones.innerHTML += `
+
+  for (const { descripcion, categoria, fecha, monto, id } of detalle) {
+    divContainer.innerHTML += `
     <!-- Contenido tabla -->
-    <div class="container">
     <div class="columns">
     <div class="column">${descripcion}</div>
     <div class="column">
@@ -203,15 +207,21 @@ const mostrarDetalle = () => {
     <div class="column">$ ${monto}</div>
     <div class="column is-size-7 is-flex">
     <button class="button is-ghost is-small">Editar</button>
-    <button class="button is-ghost is-small">Eliminar</button>
-    </div>
+    <button class="button is-ghost is-small eliminarItem ${id}">Eliminar</button>
     </div>
     </div>
     `;
+  
+    const btnEliminar = divContainer.querySelector(".eliminarItem");
+    $detalleOperaciones.append(divContainer);
+ 
+    console.log(btnEliminar)
+
+    btnEliminar.onclick = function () {
+      eliminarItem()
+    };
   }
 };
-// editar y eliminar
-
 
 // inicio App
 const inicioApp = () => {
