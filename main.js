@@ -183,16 +183,11 @@ const filtros = () => {
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle();
 };
-// editar y eliminar
-const eliminarItem = () => {
-  alert("ESTA FUNCIONANDO ONCLICK!!!");
-};
 const mostrarDetalle = () => {
   // creo contenedor
   let divContainer = document.createElement("div");
   divContainer.classList.add("container");
   $titulosDetalle.classList.remove("is-hidden");
-
   for (const { descripcion, categoria, fecha, monto, id } of detalle) {
     divContainer.innerHTML += `
     <!-- Contenido tabla -->
@@ -206,23 +201,31 @@ const mostrarDetalle = () => {
     <div class="column">${fecha}</div>
     <div class="column">$ ${monto}</div>
     <div class="column is-size-7 is-flex">
-    <button class="button is-ghost is-small">Editar</button>
+    <button class="button is-ghost is-small editarItem ${id}">Editar</button>
     <button class="button is-ghost is-small eliminarItem ${id}">Eliminar</button>
     </div>
     </div>
     `;
-  
+    
     const btnEliminar = divContainer.querySelector(".eliminarItem");
-    $detalleOperaciones.append(divContainer);
- 
-    console.log(btnEliminar)
 
     btnEliminar.onclick = function () {
       eliminarItem()
     };
+    const btnEditar = divContainer.querySelector(".editarItem");
+    console.log(editarItem);
+  
+
+    $detalleOperaciones.append(divContainer);
   }
 };
-
+// editar y eliminar
+const eliminarItem = () => {
+  alert("ESTA FUNCIONANDO ELIMINAR ONCLICK!!!");
+};
+const editarItem = () => {
+  alert("ESTA FUNCIONANDO EDITAR ONCLICK!!!");
+};
 // inicio App
 const inicioApp = () => {
   cerrarVistas();

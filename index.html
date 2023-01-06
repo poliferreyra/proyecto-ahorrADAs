@@ -309,8 +309,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
           <div class="columns">
             <div class="column is-10">
@@ -318,8 +320,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
           <div class="columns is-size-7">
             <div class="column is-10">
@@ -327,8 +331,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
           <div class="columns">
             <div class="column is-10">
@@ -336,8 +342,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
           <div class="columns">
             <div class="column is-10">
@@ -345,8 +353,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
           <div class="columns">
             <div class="column is-10">
@@ -354,8 +364,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
           <div class="columns">
             <div class="column is-10">
@@ -363,8 +375,10 @@
             </div>
             <div class="column is-size-7 is-flex">
               <button class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">Eliminar</button>
-              </div>
+              <button onclick="eliminarItem()" class="button is-ghost is-small">
+                Eliminar
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -374,13 +388,11 @@
       <div class="container column is-8">
         <div class="box">
           <div class="columns">
-            <div class="column"><h1 class="title is-3">Reportes</h1></div>
+            <div class="column"><h1 class="title">Reportes</h1></div>
           </div>
           <!-- operaciones - imagen y texto -->
-          <div class="is-flex is-justify-content-center">
-            <figure class="image">
-              <img src="assets/reportes.png" />
-            </figure>
+          <div class="image">
+            <img src="assets/reportes.png" />
           </div>
           <div>
             <h3 class="title is-4 my-4 has-text-centered">
@@ -391,6 +403,90 @@
             </p>
           </div>
         </div>
+
+        <!-- PRUEBA DE VISTA REPORTES -->
+        <div>
+          <!-- Elige el mes -->
+          <div class="field has-addons mx-6">
+            <p class="control my-4">
+              <input class="input" type="text" />
+            </p>
+            <p class="control">
+              <button class="button is-primary my-4">Elige un mes</button>
+            </p>
+          </div>
+          <!-- Informe Gastos-->
+          <!-- Titulo Informe de Gastos-->
+          <div class="mb-4 mx-6">
+            <h1 class="title is-size-4">Detalle de Gastos</h1>
+          </div>
+          <!-- barras de progreso por categorias -->
+          <div class="mx-6">
+            <div class="mx-6">
+              <div>
+                <h5>Transporte</h5>
+              </div>
+              <div class="is-flex">
+                <progress
+                  class="progress is-small is-warning my-2"
+                  value="10"
+                  max="100"
+                ></progress>
+                <span class="ml-5">10%</span>
+              </div>
+
+              <div>
+                <h5>Compras</h5>
+              </div>
+              <div class="is-flex">
+                <progress
+                  class="progress is-small is-warning my-2"
+                  value="40"
+                  max="100"
+                ></progress>
+                <span class="ml-5">40%</span>
+              </div>
+
+              <div>
+                <h5>Salidas</h5>
+              </div>
+              <div class="is-flex">
+                <progress
+                  class="progress is-small is-warning my-2"
+                  value="20"
+                  max="100"
+                ></progress>
+                <span class="ml-5">20%</span>
+              </div>
+
+              <div>
+                <h5>Servicios</h5>
+              </div>
+              <div class="is-flex">
+                <progress
+                  class="progress is-small is-warning my-2"
+                  value="20"
+                  max="100"
+                ></progress>
+                <span class="ml-5">20%</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- RESUMEN MENSUAL -->
+        <div class="my-4 mx-6">
+          <h1 class="title is-size-4">Resumen mensual</h1>
+        </div>
+
+        <div class="container mx-6">
+          <div id="titulos-detalle" class="columns mx-4">
+            <div class="has-text-weight-bold column mx-6">Ingresos</div>
+            <div class="has-text-weight-bold column mx-6">Gastos</div>
+            <div class="has-text-weight-bold column mx-6">Balance</div>
+          </div>
+        </div>
+
+        <!-- ************************************************************* -->
       </div>
     </section>
 
