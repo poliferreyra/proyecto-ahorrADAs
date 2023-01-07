@@ -43,8 +43,7 @@ const $filtroFecha = $("#filtro-fecha");
 const $filtroOrdenX = $("#filtro-ordenX");
 
 // array y objeto para nueva operacion
-const listaOperaciones =
-  JSON.parse(localStorage.getItem("operacionNueva")) || [];
+let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
 
 const datosOperacion = {
   descripcion: "",
@@ -108,7 +107,9 @@ const mostrarValores = () => {
   $totalIngresos.innerText = `$ ${totalIngresos}`;
   $totalGastos.innerText = `$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
+  
 };
+
 // agregar nueva operacion
 const agregarOperaciones = () => {
   let operacion = { ...datosOperacion };
@@ -125,6 +126,7 @@ const agregarOperaciones = () => {
   vistaBalance();
   mostrarValores();
 };
+
 // filtros
 const ocultarFiltros = () => {
   if ($ocultarFiltrosTxt.innerText === "Ocultar Filtros") {
@@ -138,7 +140,7 @@ const ocultarFiltros = () => {
 // filtrar y mostrar detalle de operaciones en vista balance
 let detalle;
 const filtros = () => {
-  detalle = listaOperaciones;
+  detalle = [...listaOperaciones];
   // primero filtra por tipo de operacion
   if ($filtroTipo.value !== "todos") {
     detalle = listaOperaciones.filter(
@@ -184,12 +186,12 @@ const filtros = () => {
   mostrarDetalle();
 };
 const mostrarDetalle = () => {
-  // creo contenedor
-  let divContainer = document.createElement("div");
-  divContainer.classList.add("container");
   $titulosDetalle.classList.remove("is-hidden");
-  for (const { descripcion, categoria, fecha, monto, id } of detalle) {
-    divContainer.innerHTML += `
+  $detalleOperaciones.innerHTML = "";
+  for (const { descripcion, categoria, fecha, monto, id } of listaOperaciones) {
+    let contenedorOperacion = document.createElement("div");
+    contenedorOperacion.classList.add("container");
+    contenedorOperacion.innerHTML += `
     <!-- Contenido tabla -->
     <div class="columns">
     <div class="column">${descripcion}</div>
@@ -201,27 +203,32 @@ const mostrarDetalle = () => {
     <div class="column">${fecha}</div>
     <div class="column">$ ${monto}</div>
     <div class="column is-size-7 is-flex">
-    <button class="button is-ghost is-small editarItem ${id}">Editar</button>
-    <button class="button is-ghost is-small eliminarItem ${id}">Eliminar</button>
-    </div>
+    <button class="button is-ghost is-small editarItem">Editar</button>
+    <button class="button is-ghost is-small eliminarItem">Eliminar</button>
+    </div)
     </div>
     `;
-    
-    const btnEliminar = divContainer.querySelector(".eliminarItem");
-
+    const btnEliminar = contenedorOperacion.querySelector(".eliminarItem");
     btnEliminar.onclick = function () {
-      eliminarItem()
+      eliminarOperacion(id);
     };
-    const btnEditar = divContainer.querySelector(".editarItem");
-    console.log(editarItem);
-  
 
-    $detalleOperaciones.append(divContainer);
+    const btnEditar = contenedorOperacion.querySelector(".editarItem");
+    btnEditar.onclick = function () {
+      editarItem();
+    };
+
+    $detalleOperaciones.append(contenedorOperacion);
   }
 };
 // editar y eliminar
-const eliminarItem = () => {
-  alert("ESTA FUNCIONANDO ELIMINAR ONCLICK!!!");
+const eliminarOperacion = (id) => {
+  //alert("estoy andando")
+  listaOperaciones = listaOperaciones.filter((item) => item.id !== id);
+  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+
+  mostrarDetalle();
+  mostrarValores();
 };
 const editarItem = () => {
   alert("ESTA FUNCIONANDO EDITAR ONCLICK!!!");
