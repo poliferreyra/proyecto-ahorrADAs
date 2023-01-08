@@ -107,7 +107,6 @@ const mostrarValores = () => {
   $totalIngresos.innerText = `$ ${totalIngresos}`;
   $totalGastos.innerText = `$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
-  
 };
 
 // agregar nueva operacion
@@ -141,11 +140,10 @@ const ocultarFiltros = () => {
 let detalle;
 const filtros = () => {
   detalle = [...listaOperaciones];
+
   // primero filtra por tipo de operacion
   if ($filtroTipo.value !== "todos") {
-    detalle = listaOperaciones.filter(
-      (dato) => dato.tipo === $filtroTipo.value
-    );
+    detalle = detalle.filter((dato) => dato.tipo === $filtroTipo.value);
   }
   // del resultante ⬆ filtra por...
   if ($filtroCategoria.value !== "todos") {
@@ -157,6 +155,7 @@ const filtros = () => {
   detalle = detalle.filter(
     (dato) => new Date(dato.fecha) >= new Date($filtroFecha.value)
   );
+
   // filtra por orden
   if ($filtroOrdenX.value === "menosReciente") {
     detalle = detalle.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
@@ -183,12 +182,12 @@ const filtros = () => {
     );
   }
   $boxCtlVBalance.classList.add("is-hidden");
-  mostrarDetalle();
+  mostrarDetalle(detalle);
 };
-const mostrarDetalle = () => {
+const mostrarDetalle = (datos) => {
   $titulosDetalle.classList.remove("is-hidden");
   $detalleOperaciones.innerHTML = "";
-  for (const { descripcion, categoria, fecha, monto, id } of listaOperaciones) {
+  for (const { descripcion, categoria, fecha, monto, id } of datos) {
     let contenedorOperacion = document.createElement("div");
     contenedorOperacion.classList.add("container");
     contenedorOperacion.innerHTML += `
@@ -227,7 +226,7 @@ const eliminarOperacion = (id) => {
   listaOperaciones = listaOperaciones.filter((item) => item.id !== id);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
 
-  mostrarDetalle();
+  mostrarDetalle(listaOperaciones);
   mostrarValores();
 };
 const editarItem = () => {
