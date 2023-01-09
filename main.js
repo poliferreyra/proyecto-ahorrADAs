@@ -18,7 +18,9 @@ const $boxCtlVBalance = $("#operaciones");
 // nueva operacion
 const $botonNuevaOperacion = $("#boton-agregar-operacion");
 const $boxNuevaOperacion = $("#box-nueva-operacion");
+let $botonesOperacion = $("#botones-operacion");
 // box nueva operacion
+const $h2BoxOperacion = $("#h2-box-operacion");
 const $descripcion = $("#descripcion");
 const $monto = $("#monto");
 const $tipoOperacion = $("#tipo-operacion");
@@ -108,7 +110,6 @@ const mostrarValores = () => {
   $totalGastos.innerText = `$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
 };
-
 // agregar nueva operacion
 const agregarOperaciones = () => {
   let operacion = { ...datosOperacion };
@@ -155,7 +156,6 @@ const filtros = () => {
   detalle = detalle.filter(
     (dato) => new Date(dato.fecha) >= new Date($filtroFecha.value)
   );
-
   // filtra por orden
   if ($filtroOrdenX.value === "menosReciente") {
     detalle = detalle.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
@@ -202,19 +202,19 @@ const mostrarDetalle = (datos) => {
     <div class="column">${fecha}</div>
     <div class="column">$ ${monto}</div>
     <div class="column is-size-7 is-flex">
-    <button class="button is-ghost is-small editarItem">Editar</button>
-    <button class="button is-ghost is-small eliminarItem">Eliminar</button>
+    <button class="button is-ghost is-small editarOp">Editar</button>
+    <button class="button is-ghost is-small eliminarOp">Eliminar</button>
     </div)
     </div>
     `;
-    const btnEliminar = contenedorOperacion.querySelector(".eliminarItem");
+    const btnEliminar = contenedorOperacion.querySelector(".eliminarOp");
     btnEliminar.onclick = function () {
       eliminarOperacion(id);
     };
 
-    const btnEditar = contenedorOperacion.querySelector(".editarItem");
+    const btnEditar = contenedorOperacion.querySelector(".editarOp");
     btnEditar.onclick = function () {
-      editarItem();
+      editarItem(id);
     };
 
     $detalleOperaciones.append(contenedorOperacion);
@@ -222,15 +222,52 @@ const mostrarDetalle = (datos) => {
 };
 // editar y eliminar
 const eliminarOperacion = (id) => {
-  //alert("estoy andando")
   listaOperaciones = listaOperaciones.filter((item) => item.id !== id);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
 
   mostrarDetalle(listaOperaciones);
   mostrarValores();
 };
-const editarItem = () => {
-  alert("ESTA FUNCIONANDO EDITAR ONCLICK!!!");
+// vista operacion para editar
+let opEditada;
+let botonEditar = document.createElement("button");
+botonEditar.classList.add("button", "is-primary", "m-2");
+botonEditar.innerText = "Editar";
+const editarItem = (id) => {
+  nuevaOperacion();
+  $h2BoxOperacion.innerText = "Editar Operación";
+  $btnAgregarOperacion.classList.add("is-hidden");
+
+  $botonesOperacion.append(botonEditar);
+
+  opEditada = listaOperaciones.find((item) => item.id === id);
+  $descripcion.value = opEditada["descripcion"];
+  $monto.value = opEditada["monto"];
+  $tipoOperacion.value = opEditada["tipo"];
+  $tipoCategoria.value = opEditada["categoria"];
+  $fechaOperacion.value = opEditada["fecha"];
+
+  botonEditar.onclick = function () {
+    modifOpEditar(id);
+  };
+};
+modifOpEditar = (id) => {
+  listaOperaciones = listaOperaciones.map((operacion) => {
+    if (operacion.id === opEditada.id) {
+      operacion.descripcion = $descripcion.value;
+      operacion.monto = Number($monto.value);
+      operacion.tipo = $tipoOperacion.value;
+      operacion.categoria = $tipoCategoria.value;
+      operacion.fecha = $fechaOperacion.value;
+    }
+    return operacion;
+  });
+  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+
+  mostrarDetalle(listaOperaciones);
+  mostrarValores();
+  vistaBalance();
+  opEditada = null;
 };
 // inicio App
 const inicioApp = () => {
