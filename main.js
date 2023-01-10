@@ -43,6 +43,10 @@ const $filtroTipo = $("#filtro-tipo");
 const $filtroCategoria = $("#filtro-categoria");
 const $filtroFecha = $("#filtro-fecha");
 const $filtroOrdenX = $("#filtro-ordenX");
+// categoria
+const $inputAgregarCat = $("#input-agregar-categoria");
+const $btnAgregarCat = $("#btn-agregar-categoria");
+let $contenedorCat = $("#detalle-categorias");
 
 // array y objeto para nueva operacion
 let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
@@ -75,6 +79,7 @@ const vistaBalance = () => {
 const vistaCategoria = () => {
   cerrarVistas();
   $contenedorCategoria.classList.remove("is-hidden");
+  mostrarDetalleCategorias();
 };
 const vistaReportes = () => {
   cerrarVistas();
@@ -87,6 +92,25 @@ const nuevaOperacion = () => {
 const cerrarBoxOperacion = () => {
   $boxNuevaOperacion.classList.toggle("is-hidden");
   $contenedorBalance.classList.toggle("is-hidden");
+  $h2BoxOperacion.innerText = "Nueva Operación";
+  $btnAgregarOperacion.classList.toggle("is-hidden");
+  botonEditar.classList.toggle("is-hidden");
+};
+// agregar nueva operacion
+const agregarOperaciones = () => {
+  let operacion = { ...datosOperacion };
+
+  operacion.descripcion = $descripcion.value;
+  operacion.monto = Number($monto.value);
+  operacion.tipo = $tipoOperacion.value;
+  operacion.categoria = $tipoCategoria.value;
+  operacion.fecha = $fechaOperacion.value;
+  operacion.id = self.crypto.randomUUID();
+
+  listaOperaciones.push(operacion);
+  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+  vistaBalance();
+  mostrarValores();
 };
 // vista balance - totales
 const mostrarValores = () => {
@@ -110,23 +134,6 @@ const mostrarValores = () => {
   $totalGastos.innerText = `$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
 };
-// agregar nueva operacion
-const agregarOperaciones = () => {
-  let operacion = { ...datosOperacion };
-
-  operacion.descripcion = $descripcion.value;
-  operacion.monto = Number($monto.value);
-  operacion.tipo = $tipoOperacion.value;
-  operacion.categoria = $tipoCategoria.value;
-  operacion.fecha = $fechaOperacion.value;
-  operacion.id = self.crypto.randomUUID();
-
-  listaOperaciones.push(operacion);
-  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
-  vistaBalance();
-  mostrarValores();
-};
-
 // filtros
 const ocultarFiltros = () => {
   if ($ocultarFiltrosTxt.innerText === "Ocultar Filtros") {
@@ -139,6 +146,7 @@ const ocultarFiltros = () => {
 };
 // filtrar y mostrar detalle de operaciones en vista balance
 let detalle;
+
 const filtros = () => {
   detalle = [...listaOperaciones];
 
@@ -146,17 +154,18 @@ const filtros = () => {
   if ($filtroTipo.value !== "todos") {
     detalle = detalle.filter((dato) => dato.tipo === $filtroTipo.value);
   }
-  // del resultante ⬆ filtra por...
+
+  // del resultante ⬆ filtra por categoria
   if ($filtroCategoria.value !== "todos") {
     detalle = detalle.filter(
       (dato) => dato.categoria === $filtroCategoria.value
     );
   }
-  // filta por fecha
+  // por fecha
   detalle = detalle.filter(
     (dato) => new Date(dato.fecha) >= new Date($filtroFecha.value)
   );
-  // filtra por orden
+  // por orden
   if ($filtroOrdenX.value === "menosReciente") {
     detalle = detalle.sort((a, b) => new Date(a.fecha) - new Date(b.fecha));
   }
@@ -174,16 +183,17 @@ const filtros = () => {
       a.descripcion.localeCompare(b.descripcion)
     );
   }
-  // localeCompere -- devuelve un número que indica si una cadena de referencia viene antes o después, o es la misma
-  //independientemente de may - min o caracteres especiales
   if ($filtroOrdenX.value === "ordenZA") {
     detalle = detalle.sort((a, b) =>
       b.descripcion.localeCompare(a.descripcion)
     );
   }
+  // localeCompere -- devuelve un número que indica si una cadena de referencia viene antes o después, o es la misma
+  //independientemente de may - min o caracteres especiales
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle(detalle);
 };
+// muestra detalle de operaciones filtradas
 const mostrarDetalle = (datos) => {
   $titulosDetalle.classList.remove("is-hidden");
   $detalleOperaciones.innerHTML = "";
@@ -220,7 +230,7 @@ const mostrarDetalle = (datos) => {
     $detalleOperaciones.append(contenedorOperacion);
   }
 };
-// editar y eliminar
+// editar y eliminar operaciones
 const eliminarOperacion = (id) => {
   listaOperaciones = listaOperaciones.filter((item) => item.id !== id);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
@@ -228,7 +238,7 @@ const eliminarOperacion = (id) => {
   mostrarDetalle(listaOperaciones);
   mostrarValores();
 };
-// vista operacion para editar
+// vista operacion editada
 let opEditada;
 let botonEditar = document.createElement("button");
 botonEditar.classList.add("button", "is-primary", "m-2");
@@ -248,10 +258,11 @@ const editarItem = (id) => {
   $fechaOperacion.value = opEditada["fecha"];
 
   botonEditar.onclick = function () {
-    modifOpEditar(id);
+    modifOpEditada(id);
   };
 };
-modifOpEditar = (id) => {
+// modificar operacion editada y actualiza localStorage
+const modifOpEditada = (id) => {
   listaOperaciones = listaOperaciones.map((operacion) => {
     if (operacion.id === opEditada.id) {
       operacion.descripcion = $descripcion.value;
@@ -269,11 +280,59 @@ modifOpEditar = (id) => {
   vistaBalance();
   opEditada = null;
 };
+// agregar categoria
+let listaCategoriasLocal =
+  JSON.parse(localStorage.getItem("categoriaNueva")) || [];
+const datoCategoria = {
+  nombre: "",
+};
+const agregarCategoria = () => {
+  let categoriaNueva = { ...datoCategoria };
+  categoriaNueva.nombre = $inputAgregarCat.value;
+  listaCategoriasLocal.push(categoriaNueva);
+  localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
+  vistaBalance();
+};
+// mostrar categoria
+const mostrarFiltrosCategorias = () => {
+  for (const dato of listaCategoriasLocal) {
+    $filtroCategoria.innerHTML += `
+    <option value="${dato.nombre.toLowerCase()}">${dato.nombre}</option>
+    `;
+  }
+};
+const mostrarDetalleCategorias = () => {
+  $contenedorCat.innerHTML = "";
+  for (const dato of listaCategoriasLocal) {
+    if (dato.nombre !== "Todos") {
+      $contenedorCat.innerHTML += `
+      <div class="columns is-size-7">
+      <div class="column is-10">
+      <span class="tag is-primary is-light">${dato.nombre}</span>
+      </div>
+      <div class="column is-size-7 is-flex">
+      <button onclick="editarItem()" class="button is-ghost is-small">
+      Editar
+      </button>
+      <button
+      onclick="eliminarItem()"
+      class="button is-ghost is-small"
+      >
+      Eliminar
+      </button>
+      </div>
+      </div>
+      `;
+    }
+  }
+};
+
 // inicio App
 const inicioApp = () => {
   cerrarVistas();
   vistaBalance();
   mostrarValores();
+  mostrarFiltrosCategorias();
 };
 inicioApp();
 
@@ -297,3 +356,5 @@ $filtroTipo.addEventListener("input", filtros);
 $filtroCategoria.addEventListener("input", filtros);
 $filtroFecha.addEventListener("input", filtros);
 $filtroOrdenX.addEventListener("input", filtros);
+// agregar categoria
+$btnAgregarCat.addEventListener("click", agregarCategoria);

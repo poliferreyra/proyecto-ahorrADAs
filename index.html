@@ -128,14 +128,11 @@
                 <label class="label" for="">Categoría</label>
                 <div class="control select is-fullwidth">
                   <select id="filtro-categoria">
-                    <option value="todos">Todos</option>
-                    <option value="servicios">Servicios</option>
-                    <option value="comida">Comida</option>
-                    <option value="salidas">Salidas</option>
-                    <option value="educacion">Educación</option>
-                    <option value="transporte">Transporte</option>
+                    <!-- <option value="todos">Todos</option>
                     <option value="salario">Salario</option>
-                    <option value="compras">Compras</option>
+                    <option value="servicios">Servicios</option>
+                    <option value="salidas">Salidas</option>
+                    <option value="compras">Compras</option> -->
                   </select>
                 </div>
               </div>
@@ -273,7 +270,10 @@
                 />
               </div>
             </div>
-            <div id="botones-operacion" class="field is-grouped is-grouped-right">
+            <div
+              id="botones-operacion"
+              class="field is-grouped is-grouped-right"
+            >
               <button id="btnCancelarOperacion" class="button m-2">
                 Cancelar
               </button>
@@ -294,92 +294,84 @@
           <div class="field has-addons">
             <div class="control is-expanded">
               <input
+                id="input-agregar-categoria"
                 class="input"
                 type="text"
                 placeholder="Nombre de la nueva categoría"
               />
             </div>
             <div class="control">
-              <button class="button is-primary ml-3">Agregar</button>
+              <button id="btn-agregar-categoria" class="button is-primary ml-3">
+                Agregar
+              </button>
             </div>
           </div>
           <!-- lista de categorías -->
-          <div class="columns mt-5">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Salario</span>
+          <div id="detalle-categorias">
+            <!-- <div class="columns mt-5">
+              <div class="column is-10">
+                <span class="tag is-primary is-light">Salario</span>
+              </div>
+              <div class="column is-size-7 is-flex">
+                <button onclick="editarItem()" class="button is-ghost is-small">
+                  Editar
+                </button>
+                <button
+                  onclick="eliminarItem()"
+                  class="button is-ghost is-small"
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
+            <div class="columns is-size-7">
+              <div class="column is-10">
+                <span class="tag is-primary is-light">Servicios</span>
+              </div>
+              <div class="column is-size-7 is-flex">
+                <button onclick="editarItem()" class="button is-ghost is-small">
+                  Editar
+                </button>
+                <button
+                  onclick="eliminarItem()"
+                  class="button is-ghost is-small"
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
-          </div>
-          <div class="columns">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Comida</span>
+            <div class="columns">
+              <div class="column is-10">
+                <span class="tag is-primary is-light">Salidas</span>
+              </div>
+              <div class="column is-size-7 is-flex">
+                <button onclick="editarItem()" class="button is-ghost is-small">
+                  Editar
+                </button>
+                <button
+                  onclick="eliminarItem()"
+                  class="button is-ghost is-small"
+                >
+                  Eliminar
+                </button>
+              </div>
             </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
-            </div>
-          </div>
-          <div class="columns is-size-7">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Servicios</span>
-            </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
-            </div>
-          </div>
-          <div class="columns">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Educación</span>
-            </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
-            </div>
-          </div>
-          <div class="columns">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Transporte</span>
-            </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
-            </div>
-          </div>
-          <div class="columns">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Salidas</span>
-            </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
-            </div>
-          </div>
-          <div class="columns">
-            <div class="column is-10">
-              <span class="tag is-primary is-light">Compras</span>
-            </div>
-            <div class="column is-size-7 is-flex">
-              <button onclick= "editarItem()" class="button is-ghost is-small">Editar</button>
-              <button onclick="eliminarItem()" class="button is-ghost is-small">
-                Eliminar
-              </button>
-            </div>
+            <div class="columns">
+              <div class="column is-10">
+                <span class="tag is-primary is-light">Compras</span>
+              </div>
+              <div class="column is-size-7 is-flex">
+                <button onclick="editarItem()" class="button is-ghost is-small">
+                  Editar
+                </button>
+                <button
+                  onclick="eliminarItem()"
+                  class="button is-ghost is-small"
+                >
+                  Eliminar
+                </button>
+              </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -408,13 +400,13 @@
         <!-- PRUEBA DE VISTA REPORTES -->
         <div>
           <!-- Elige el mes -->
-          <div class="field has-addons mx-6">
-            <p class="control my-4">
-              <input class="input" type="text" />
-            </p>
-            <p class="control">
-              <button class="button is-primary my-4">Elige un mes</button>
-            </p>
+          <div class="field has-addons">
+            <div class="control is-expanded">
+              <input class="input" type="text" placeholder="Elige el mes" />
+            </div>
+            <div class="control">
+              <button class="button is-primary ml-3">Agregar</button>
+            </div>
           </div>
           <!-- Informe Gastos-->
           <!-- Titulo Informe de Gastos-->
