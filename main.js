@@ -149,12 +149,10 @@ let detalle;
 
 const filtros = () => {
   detalle = [...listaOperaciones];
-
   // primero filtra por tipo de operacion
   if ($filtroTipo.value !== "todos") {
     detalle = detalle.filter((dato) => dato.tipo === $filtroTipo.value);
   }
-
   // del resultante ⬆ filtra por categoria
   if ($filtroCategoria.value !== "todos") {
     detalle = detalle.filter(
@@ -221,12 +219,10 @@ const mostrarDetalle = (datos) => {
     btnEliminar.onclick = function () {
       eliminarOperacion(id);
     };
-
     const btnEditar = contenedorOperacion.querySelector(".editarOp");
     btnEditar.onclick = function () {
       editarItem(id);
     };
-
     $detalleOperaciones.append(contenedorOperacion);
   }
 };
@@ -289,6 +285,7 @@ const datoCategoria = {
 const agregarCategoria = () => {
   let categoriaNueva = { ...datoCategoria };
   categoriaNueva.nombre = $inputAgregarCat.value;
+  categoriaNueva.id = self.crypto.randomUUID();
   listaCategoriasLocal.push(categoriaNueva);
   localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
   vistaBalance();
@@ -301,30 +298,43 @@ const mostrarFiltrosCategorias = () => {
     `;
   }
 };
-const mostrarDetalleCategorias = () => {
+const mostrarDetalleCategorias = (id) => {
   $contenedorCat.innerHTML = "";
   for (const dato of listaCategoriasLocal) {
-    if (dato.nombre !== "Todos") {
-      $contenedorCat.innerHTML += `
-      <div class="columns is-size-7">
+    let divCategoria = document.createElement("div");
+    divCategoria.classList.add("columns","is-size-7");
+      //if (dato.nombre !== "Todos") {
+      divCategoria.innerHTML += `
       <div class="column is-10">
       <span class="tag is-primary is-light">${dato.nombre}</span>
       </div>
       <div class="column is-size-7 is-flex">
-      <button onclick="editarItem()" class="button is-ghost is-small">
+      <button class="button is-ghost is-small btn-editar-cat">
       Editar
       </button>
-      <button
-      onclick="eliminarItem()"
-      class="button is-ghost is-small"
-      >
+      <button class="button is-ghost is-small btn-eliminar-cat">
       Eliminar
       </button>
       </div>
       </div>
       `;
-    }
+     // }
+    const btnEditarCategoria = divCategoria.querySelector(".btn-editar-cat");
+    btnEditarCategoria.onclick = function () {
+      editarCategoria(id);
   }
+  const btnEliminarCategoria = divCategoria.querySelector(".btn-eliminar-cat");
+    btnEliminarCategoria.onclick = function () {
+      eliminarCategoria(id);
+  }
+  $contenedorCat.append(divCategoria);
+  };
+};
+const editarCategoria = ()=>{
+  console.log("Funciona Editar")
+};
+const eliminarCategoria = (id)=>{
+  console.log("funciona eliminar")
 };
 
 // inicio App
