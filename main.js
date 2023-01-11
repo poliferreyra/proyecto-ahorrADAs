@@ -106,7 +106,7 @@ const agregarOperaciones = () => {
   operacion.categoria = $tipoCategoria.value;
   operacion.fecha = $fechaOperacion.value;
   operacion.id = self.crypto.randomUUID();
-
+console.log(operacion)
   listaOperaciones.push(operacion);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
   vistaBalance();
@@ -289,18 +289,22 @@ const agregarCategoria = () => {
   listaCategoriasLocal.push(categoriaNueva);
   localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
   vistaBalance();
+  console.log(categoriaNueva);
 };
 // mostrar categoria
 const mostrarFiltrosCategorias = () => {
   for (const dato of listaCategoriasLocal) {
-    $filtroCategoria.innerHTML += `
-    <option value="${dato.nombre.toLowerCase()}">${dato.nombre}</option>
-    `;
+    if(dato.nombre !== "Todos"){
+      $filtroCategoria.innerHTML += `
+      <option value="${dato.nombre.toLowerCase()}">${dato.nombre}</option>
+      `;
+    }
   }
 };
 const mostrarDetalleCategorias = (id) => {
   $contenedorCat.innerHTML = "";
-  for (const dato of listaCategoriasLocal) {
+  let filtroCat = listaCategoriasLocal.filter((dato)=>dato.nombre !== "Todos")
+  for (const dato of filtroCat) {
     let divCategoria = document.createElement("div");
     divCategoria.classList.add("columns","is-size-7");
       //if (dato.nombre !== "Todos") {
