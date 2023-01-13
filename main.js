@@ -50,24 +50,15 @@ let $contenedorCat = $("#detalle-categorias");
 let $tituloBoxCategoria = $(".titulo-box-categoria");
 let $boxContenedorCat = $(".box-contendor-categorias");
 
-// array y objeto para nueva operacion
-let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
-
-const datosOperacion = {
-  descripcion: "",
-  monto: 0,
-  tipo: "",
-  categoria: "",
-  fecha: "",
-};
-
 // FUNCIONES
+
+// ***  VISTAS ***
 // menu hamburguesa
 const toggleIsActive = () => {
   $navBarEnd.classList.toggle("is-active");
   $btnHambur.classList.toggle("is-active");
 };
-// secciones principales - vistas
+// secciones principales
 const cerrarVistas = () => {
   $contenedorCategoria.classList.add("is-hidden");
   $contenedorReportes.classList.add("is-hidden");
@@ -97,22 +88,6 @@ const cerrarBoxOperacion = () => {
   $h2BoxOperacion.innerText = "Nueva Operación";
   $btnAgregarOperacion.classList.toggle("is-hidden");
   botonEditar.classList.toggle("is-hidden");
-};
-// agregar nueva operacion
-const agregarOperaciones = () => {
-  let operacion = { ...datosOperacion };
-
-  operacion.descripcion = $descripcion.value;
-  operacion.monto = Number($monto.value);
-  operacion.tipo = $tipoOperacion.value;
-  operacion.categoria = $tipoCategoria.value;
-  operacion.fecha = $fechaOperacion.value;
-  operacion.id = self.crypto.randomUUID();
-
-  listaOperaciones.push(operacion);
-  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
-  vistaBalance();
-  mostrarValores();
 };
 // vista balance - totales
 const mostrarValores = () => {
@@ -191,6 +166,34 @@ const filtros = () => {
   //independientemente de may - min o caracteres especiales
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle(detalle);
+};
+
+// *** OPERACIONES ***
+// array y objeto para nueva operacion
+let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
+
+const datosOperacion = {
+  descripcion: "",
+  monto: 0,
+  tipo: "",
+  categoria: "",
+  fecha: "",
+};
+// agregar nueva operacion
+const agregarOperaciones = () => {
+  let operacion = { ...datosOperacion };
+
+  operacion.descripcion = $descripcion.value;
+  operacion.monto = Number($monto.value);
+  operacion.tipo = $tipoOperacion.value;
+  operacion.categoria = $tipoCategoria.value;
+  operacion.fecha = $fechaOperacion.value;
+  operacion.id = self.crypto.randomUUID();
+
+  listaOperaciones.push(operacion);
+  localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
+  vistaBalance();
+  mostrarValores();
 };
 // muestra detalle de operaciones filtradas
 const mostrarDetalle = (datos) => {
@@ -276,6 +279,7 @@ const modifOpEditada = (id) => {
   vistaBalance();
   opEditada = null;
 };
+// *** CATEGORIAS ***
 // agregar categoria
 let listaCategoriasLocal =
   JSON.parse(localStorage.getItem("categoriaNueva")) || [];
@@ -292,7 +296,7 @@ const agregarCategoria = () => {
   vistaBalance();
   $inputAgregarCat.value = null;
 };
-// mostrar categoria
+// mostrar categorias en input de los filtros
 const mostrarFiltrosCategorias = () => {
   for (const dato of listaCategoriasLocal) {
     if (dato.nombre !== "Todos") {
@@ -302,6 +306,7 @@ const mostrarFiltrosCategorias = () => {
     }
   }
 };
+// mostrar categorias
 const mostrarDetalleCategorias = () => {
   $contenedorCat.innerHTML = "";
   let filtroCat = listaCategoriasLocal.filter(
@@ -311,14 +316,14 @@ const mostrarDetalleCategorias = () => {
     let divCategoria = document.createElement("div");
     divCategoria.classList.add("columns");
     divCategoria.innerHTML += `
-      <div class="column">
+      <div class="column is-four-fifths">
       <span class="tag is-primary is-light">${dato.nombre}</span>
       </div>
       <div class="column">
       <button class="button is-ghost is-small btn-editar-cat">
       Editar
       </button>
-      <button class="button is-ghost is-small btn-eliminar-cat" id=${dato.id}>
+      <button class="button is-ghost is-small btn-eliminar-cat">
       Eliminar
       </button>
       </div>
@@ -336,6 +341,12 @@ const mostrarDetalleCategorias = () => {
     $contenedorCat.append(divCategoria);
   }
 };
+const eliminarCategoria = (id) => {
+  listaCategoriasLocal = listaCategoriasLocal.filter((item) => item.id !== id);
+  localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
+  mostrarDetalleCategorias();
+};
+// editar categoria
 let modificarCategoria;
 const editarCategoria = (id) => {
   $tituloBoxCategoria.innerText = "Editar Categoria";
@@ -377,8 +388,8 @@ const editarCategoria = (id) => {
   };
   $boxContenedorCat.append(divCategoriaEditada);
 };
+// modificar categoria y actualiza localStorage
 const fModicarCat = (id) => {
-  console.log("funciona la modificacion de la categoria");
   listaCategoriasLocal = listaCategoriasLocal.map((cat) => {
     if (cat.id === modificarCategoria.id) {
       cat.nombre = $inputAgregarCat.value;
@@ -391,11 +402,6 @@ const cerrarBoxEdit = () => {
   $tituloBoxCategoria.innerText = "Categoria";
   $btnAgregarCat.classList.remove("is-hidden");
   $contenedorCat.classList.remove("is-hidden");
-};
-const eliminarCategoria = (id) => {
-  listaCategoriasLocal = listaCategoriasLocal.filter((item) => item.id !== id);
-  localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
-  mostrarDetalleCategorias();
 };
 
 // inicio App

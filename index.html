@@ -313,6 +313,23 @@
         <div class="box">
           <div class="columns">
             <div class="column"><h1 class="title">Reportes</h1></div>
+            <!-- input elegir fecha -->
+            <div class="column">
+              <div class="field has-addons">
+                <div class="control">
+                  <input
+                    class="input is-primary is-outlined"
+                    type="text"
+                    placeholder="Elige el mes  Ej: 01/2023"
+                  />
+                </div>
+                <div class="control">
+                  <button class="button is-primary is-outlined ml-3">
+                    Reporte
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- operaciones - imagen y texto -->
           <div class="image">
@@ -327,90 +344,6 @@
             </p>
           </div>
         </div>
-
-        <!-- PRUEBA DE VISTA REPORTES -->
-        <div>
-          <!-- Elige el mes -->
-          <div class="field has-addons">
-            <div class="control is-expanded">
-              <input class="input" type="text" placeholder="Elige el mes" />
-            </div>
-            <div class="control">
-              <button class="button is-primary ml-3">Agregar</button>
-            </div>
-          </div>
-          <!-- Informe Gastos-->
-          <!-- Titulo Informe de Gastos-->
-          <div class="mb-4 mx-6">
-            <h1 class="title is-size-4">Detalle de Gastos</h1>
-          </div>
-          <!-- barras de progreso por categorias -->
-          <div class="mx-6">
-            <div class="mx-6">
-              <div>
-                <h5>Transporte</h5>
-              </div>
-              <div class="is-flex">
-                <progress
-                  class="progress is-small is-warning my-2"
-                  value="10"
-                  max="100"
-                ></progress>
-                <span class="ml-5">10%</span>
-              </div>
-
-              <div>
-                <h5>Compras</h5>
-              </div>
-              <div class="is-flex">
-                <progress
-                  class="progress is-small is-warning my-2"
-                  value="40"
-                  max="100"
-                ></progress>
-                <span class="ml-5">40%</span>
-              </div>
-
-              <div>
-                <h5>Salidas</h5>
-              </div>
-              <div class="is-flex">
-                <progress
-                  class="progress is-small is-warning my-2"
-                  value="20"
-                  max="100"
-                ></progress>
-                <span class="ml-5">20%</span>
-              </div>
-
-              <div>
-                <h5>Servicios</h5>
-              </div>
-              <div class="is-flex">
-                <progress
-                  class="progress is-small is-warning my-2"
-                  value="20"
-                  max="100"
-                ></progress>
-                <span class="ml-5">20%</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- RESUMEN MENSUAL -->
-        <div class="my-4 mx-6">
-          <h1 class="title is-size-4">Resumen mensual</h1>
-        </div>
-
-        <div class="container mx-6">
-          <div id="titulos-detalle" class="columns mx-4">
-            <div class="has-text-weight-bold column mx-6">Ingresos</div>
-            <div class="has-text-weight-bold column mx-6">Gastos</div>
-            <div class="has-text-weight-bold column mx-6">Balance</div>
-          </div>
-        </div>
-
-        <!-- ************************************************************* -->
       </div>
     </section>
 
