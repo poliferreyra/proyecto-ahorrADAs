@@ -47,6 +47,8 @@ const $filtroOrdenX = $("#filtro-ordenX");
 const $inputAgregarCat = $("#input-agregar-categoria");
 const $btnAgregarCat = $("#btn-agregar-categoria");
 let $contenedorCat = $("#detalle-categorias");
+let $tituloBoxCategoria = $(".titulo-box-categoria");
+let $boxContenedorCat = $(".box-contendor-categorias");
 
 // array y objeto para nueva operacion
 let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
@@ -218,7 +220,6 @@ const mostrarDetalle = (datos) => {
     btnEliminar.onclick = function () {
       eliminarOperacion(id);
     };
-    console.log(btnEliminar)
     const btnEditar = contenedorOperacion.querySelector(".editarOp");
     btnEditar.onclick = function () {
       editarItem(id);
@@ -226,14 +227,14 @@ const mostrarDetalle = (datos) => {
     $detalleOperaciones.append(contenedorOperacion);
   }
 };
-// editar y eliminar operaciones
+// eliminar operaciones
 const eliminarOperacion = (id) => {
   listaOperaciones = listaOperaciones.filter((item) => item.id !== id);
   localStorage.setItem("operacionNueva", JSON.stringify(listaOperaciones));
   mostrarDetalle(listaOperaciones);
   mostrarValores();
 };
-// vista operacion editada
+// editar operacion y mostrar
 let opEditada;
 let botonEditar = document.createElement("button");
 botonEditar.classList.add("button", "is-primary", "m-2");
@@ -289,28 +290,31 @@ const agregarCategoria = () => {
   listaCategoriasLocal.push(categoriaNueva);
   localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
   vistaBalance();
+  $inputAgregarCat.value = null;
 };
 // mostrar categoria
 const mostrarFiltrosCategorias = () => {
   for (const dato of listaCategoriasLocal) {
-    if(dato.nombre !== "Todos"){
+    if (dato.nombre !== "Todos") {
       $filtroCategoria.innerHTML += `
       <option value="${dato.nombre.toLowerCase()}">${dato.nombre}</option>
       `;
     }
   }
 };
-const mostrarDetalleCategorias = (id) => {
+const mostrarDetalleCategorias = () => {
   $contenedorCat.innerHTML = "";
-  let filtroCat = listaCategoriasLocal.filter((dato)=>dato.nombre !== "Todos")
+  let filtroCat = listaCategoriasLocal.filter(
+    (dato) => dato.nombre !== "Todos"
+  );
   for (const dato of filtroCat) {
     let divCategoria = document.createElement("div");
-    divCategoria.classList.add("columns","is-size-7");
-      divCategoria.innerHTML += `
-      <div class="column is-10">
+    divCategoria.classList.add("columns");
+    divCategoria.innerHTML += `
+      <div class="column">
       <span class="tag is-primary is-light">${dato.nombre}</span>
       </div>
-      <div class="column is-size-7 is-flex">
+      <div class="column">
       <button class="button is-ghost is-small btn-editar-cat">
       Editar
       </button>
@@ -322,24 +326,76 @@ const mostrarDetalleCategorias = (id) => {
       `;
     const btnEditarCategoria = divCategoria.querySelector(".btn-editar-cat");
     btnEditarCategoria.onclick = function () {
-      editarCategoria(id);
-  }
-  const btnEliminarCategoria = divCategoria.querySelector(".btn-eliminar-cat");
+      editarCategoria(dato.id);
+    };
+    const btnEliminarCategoria =
+      divCategoria.querySelector(".btn-eliminar-cat");
     btnEliminarCategoria.onclick = function () {
-      eliminarCategoria(id);
-      console.log(btnEliminarCategoria)
+      eliminarCategoria(dato.id);
+    };
+    $contenedorCat.append(divCategoria);
   }
-  $contenedorCat.append(divCategoria);
+};
+let modificarCategoria;
+const editarCategoria = (id) => {
+  $tituloBoxCategoria.innerText = "Editar Categoria";
+  $btnAgregarCat.classList.add("is-hidden");
+  $contenedorCat.classList.add("is-hidden");
+
+  let divCategoriaEditada = document.createElement("div");
+  divCategoriaEditada.classList.add("container", "columns");
+
+  divCategoriaEditada.innerHTML += `
+          <div id="botones-cat-edit" class="column field is-grouped is-grouped-right">
+          <button id="btnCancelarOperacion" class="button m-2">Cancelar</button>
+          <button id="btnModificarCategoria" class="button is-primary m-2">
+            Editar
+          </button>
+        </div>
+    `;
+  modificarCategoria = listaCategoriasLocal.find((dato) => dato.id === id);
+  $inputAgregarCat.value = modificarCategoria["nombre"];
+
+  const divBotones = divCategoriaEditada.querySelector("#botones-cat-edit");
+  const btnModifCategoria = divCategoriaEditada.querySelector(
+    "#btnModificarCategoria"
+  );
+  btnModifCategoria.onclick = function () {
+    divBotones.classList.add("is-hidden");
+    fModicarCat(id);
+    cerrarBoxEdit();
+    mostrarDetalleCategorias();
+    $inputAgregarCat.value = null;
   };
+  const btnCerrarEdit = divCategoriaEditada.querySelector(
+    "#btnCancelarOperacion"
+  );
+  btnCerrarEdit.onclick = function () {
+    divBotones.classList.add("is-hidden");
+    $inputAgregarCat.value = null;
+    cerrarBoxEdit();
+  };
+  $boxContenedorCat.append(divCategoriaEditada);
 };
-const editarCategoria = ()=>{
-  console.log("Funciona Editar")
+const fModicarCat = (id) => {
+  console.log("funciona la modificacion de la categoria");
+  listaCategoriasLocal = listaCategoriasLocal.map((cat) => {
+    if (cat.id === modificarCategoria.id) {
+      cat.nombre = $inputAgregarCat.value;
+    }
+    return cat;
+  });
+  localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
 };
-const eliminarCategoria = (id)=>{
-  console.log("funciona eliminar")
-  listaCategoriasLocal = listaCategoriasLocal.find((item) => item.id === id);
-  //localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
-  console.log(listaCategoriasLocal)
+const cerrarBoxEdit = () => {
+  $tituloBoxCategoria.innerText = "Categoria";
+  $btnAgregarCat.classList.remove("is-hidden");
+  $contenedorCat.classList.remove("is-hidden");
+};
+const eliminarCategoria = (id) => {
+  listaCategoriasLocal = listaCategoriasLocal.filter((item) => item.id !== id);
+  localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
+  mostrarDetalleCategorias();
 };
 
 // inicio App
