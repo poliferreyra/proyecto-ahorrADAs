@@ -49,12 +49,22 @@ const $btnAgregarCat = $("#btn-agregar-categoria");
 let $contenedorCat = $("#detalle-categorias");
 let $tituloBoxCategoria = $(".titulo-box-categoria");
 let $boxContenedorCat = $(".box-contendor-categorias");
+// reportes
+const $inputFechaReporte = $(".fecha-reporte");
+const $btnFechaReporte = $(".btn-fecha-reporte");
+const $imgReportes = $("#img-reportes");
+const $imgReportesTitulos = $("#img-reportes-titulos");
+const $btnResumenReporte = $(".btn-resumen-reporte");
+const $contenedorFechaReporte = $(".contenedor-fecha-reporte");
+const $tituloTotalesCat = $(".titulo-totales-cat");
+const $totalesCat = $(".totales-cat");
+const $tituloTotalesMes = $(".titulo-totales-mes");
+const $totalesMes = $(".totales-mes");
 
 // FUNCIONES
-
 // ***  VISTAS ***
 // menu hamburguesa
-const toggleIsActive = () => {
+const menuHamburActivo = () => {
   $navBarEnd.classList.toggle("is-active");
   $btnHambur.classList.toggle("is-active");
 };
@@ -95,14 +105,14 @@ const mostrarValores = () => {
     .filter((ingresos) => ingresos.tipo === "ingresos")
     .map((valor) => valor.monto);
   const totalIngresos = montoIngresos.reduce(
-    (valorIn, valorAc) => valorIn + valorAc,
+    (valorAc, valorIn) => valorAc + valorIn,
     0
   );
   const montoGastos = listaOperaciones
     .filter((ingresos) => ingresos.tipo === "gastos")
     .map((valor) => valor.monto);
   const totalGastos = montoGastos.reduce(
-    (valorIn, valorAc) => valorIn + valorAc,
+    (valorAc, valorIn) => valorAc + valorIn,
     0
   );
   const totalGral = totalIngresos - totalGastos;
@@ -125,11 +135,11 @@ const ocultarFiltros = () => {
 let detalle;
 const filtros = () => {
   detalle = [...listaOperaciones];
-  // primero filtra por tipo de operacion
+  // por tipo de operacion
   if ($filtroTipo.value !== "todos") {
     detalle = detalle.filter((dato) => dato.tipo === $filtroTipo.value);
   }
-  // del resultante ⬆ filtra por categoria
+  // por categoria
   if ($filtroCategoria.value !== "todos") {
     detalle = detalle.filter(
       (dato) => dato.categoria === $filtroCategoria.value
@@ -167,7 +177,6 @@ const filtros = () => {
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle(detalle);
 };
-
 // *** OPERACIONES ***
 // array y objeto para nueva operacion
 let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
@@ -403,7 +412,59 @@ const cerrarBoxEdit = () => {
   $btnAgregarCat.classList.remove("is-hidden");
   $contenedorCat.classList.remove("is-hidden");
 };
-
+// *** REPORTES ***
+const ocultarImgReportes = () => {
+  $imgReportes.classList.add("is-hidden");
+  $imgReportesTitulos.classList.add("is-hidden");
+  $contenedorFechaReporte.classList.remove("is-hidden");
+};
+// ******************************
+// lista nueva para reportes
+const listaReportes = listaOperaciones.reduce((acc, operacion) => {
+  const mes = new Date(operacion.fecha).getMonth() + 1;
+  const anio = new Date(operacion.fecha).getFullYear();
+  const operaciones = {
+    categoria: operacion.categoria,
+    tipo: operacion.tipo,
+    monto: operacion.monto,
+    fechaMA: `${mes}/${anio}`,
+  };
+  return [...acc, operaciones];
+}, []);
+// DETALLE X MAYOR GASTO Y GANANCIA ❌ faltaria ver si hay iguales en montos
+let detalleGastosXCat = listaReportes.reduce((acc, operacion) => {
+  if (operacion.tipo === "gastos" && operacion.fechaMA === "1/2023") {
+    const operaciones = {
+      categoria: operacion.categoria,
+      monto: operacion.monto,
+      fecha: operacion.fechaMA,
+    };
+    return [...acc, operaciones];
+  }
+  return acc;
+}, []);
+// ❌ no me esta tomando el input de fecha
+let detalleIngresosXCat = listaReportes.reduce((acc, operacion) => {
+  if (operacion.tipo === "ingresos" && operacion.fechaMA === "1/2023") {
+    const operaciones = {
+      categoria: operacion.categoria,
+      monto: operacion.monto,
+      fecha: operacion.fechaMA,
+    };
+    return [...acc, operaciones];
+  }
+  return acc;
+}, []);
+const detalleReportes = () => {
+  $tituloTotalesCat.classList.remove("is-hidden");
+  $totalesCat.classList.remove("is-hidden");
+  $tituloTotalesMes.classList.remove("is-hidden");
+  $totalesMes.classList.remove("is-hidden");
+  detalleGastosXCat = detalleGastosXCat.sort((a, b) => b.monto - a.monto);
+  console.log(detalleGastosXCat[0]);
+  detalleIngresosXCat = detalleIngresosXCat.sort((a, b) => b.monto - a.monto);
+  console.log(detalleIngresosXCat[0]);
+};
 // inicio App
 const inicioApp = () => {
   cerrarVistas();
@@ -412,10 +473,9 @@ const inicioApp = () => {
   mostrarFiltrosCategorias();
 };
 inicioApp();
-
 // EVENTOS
 // menu hamburguesa
-$btnHambur.addEventListener("click", toggleIsActive);
+$btnHambur.addEventListener("click", menuHamburActivo);
 // vista balance
 $botonBalance.addEventListener("click", vistaBalance);
 // vista categoria
@@ -435,3 +495,6 @@ $filtroFecha.addEventListener("input", filtros);
 $filtroOrdenX.addEventListener("input", filtros);
 // agregar categoria
 $btnAgregarCat.addEventListener("click", agregarCategoria);
+// reportes
+$btnResumenReporte.addEventListener("click", ocultarImgReportes);
+$btnFechaReporte.addEventListener("click", detalleReportes);

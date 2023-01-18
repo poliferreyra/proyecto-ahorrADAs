@@ -314,17 +314,19 @@
           <div class="columns">
             <div class="column"><h1 class="title">Reportes</h1></div>
             <!-- input elegir fecha -->
-            <div class="column">
+            <div class="column is-hidden contenedor-fecha-reporte">
               <div class="field has-addons">
                 <div class="control">
                   <input
-                    class="input is-primary is-outlined"
+                    class="input is-primary is-outlined fecha-reporte"
                     type="text"
-                    placeholder="Elige el mes  Ej: 01/2023"
+                    placeholder="Elige el mes  Ej: 1/2023"
                   />
                 </div>
                 <div class="control">
-                  <button class="button is-primary is-outlined ml-3">
+                  <button
+                    class="button is-primary is-outlined ml-3 btn-fecha-reporte"
+                  >
                     Reporte
                   </button>
                 </div>
@@ -332,16 +334,45 @@
             </div>
           </div>
           <!-- operaciones - imagen y texto -->
-          <div class="image">
+          <div id="img-reportes" class="image">
             <img src="assets/reportes.png" />
           </div>
-          <div>
-            <h3 class="title is-4 my-4 has-text-centered">
-              Operaciones insuficientes
+          <div id="img-reportes-titulos">
+            <h3 class="title is-4 mb-1 has-text-centered">
+              Detalle de operaciones
             </h3>
-            <p class="subtitle is-6 my-3 has-text-centered">
-              Prueba agregando más operaciones
-            </p>
+            <div class="has-text-centered">
+              <button class="button is-ghost btn-resumen-reporte">
+                Hace click aquí
+              </button>
+            </div>
+          </div>
+          <!-- mostrar reportes -->
+          <!-- totales por categoria-->
+          <div class="my-3 mx-6 is-hidden titulo-totales-cat">
+            <h5 class="title is-size-5">Totales por categoría</h5>
+          </div>
+
+          <div class="container mx-2 is-hidden totales-cat">
+            <div id="titulos-detalle" class="columns mx-4">
+              <div class="has-text-weight-bold column mx-6">Categoría</div>
+              <div class="has-text-weight-bold column mx-6">Ingresos</div>
+              <div class="has-text-weight-bold column mx-6">Gastos</div>
+              <div class="has-text-weight-bold column mx-6">Balance</div>
+            </div>
+          </div>
+          <!-- totales por mes -->
+          <div class="my-3 mx-6 is-hidden titulo-totales-mes">
+            <h5 class="title is-size-5">Totales por Mes</h5>
+          </div>
+
+          <div class="container mx-6 is-hidden totales-mes">
+            <div id="titulos-detalle" class="columns mx-4">
+              <div class="has-text-weight-bold column mx-6">Mes</div>
+              <div class="has-text-weight-bold column mx-6">Ingresos</div>
+              <div class="has-text-weight-bold column mx-6">Gastos</div>
+              <div class="has-text-weight-bold column mx-6">Balance</div>
+            </div>
           </div>
         </div>
       </div>
