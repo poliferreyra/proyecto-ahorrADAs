@@ -418,52 +418,99 @@ const ocultarImgReportes = () => {
   $imgReportesTitulos.classList.add("is-hidden");
   $contenedorFechaReporte.classList.remove("is-hidden");
 };
-// ******************************
-// lista nueva para reportes
+// totales por mes
+const totalMeses = listaOperaciones.reduce((acc, operacion)=>{
+  const fechaNueva = new Date(operacion.fecha)
+  const fechaMMAA = `${fechaNueva.getMonth()+1}/${fechaNueva.getFullYear()}`
+
+  if(!acc[fechaMMAA]){
+    acc[fechaMMAA] = {
+      ingresos: 0,
+      gastos: 0,
+      balance: 0
+    }
+  }
+  acc[fechaMMAA][operacion.tipo] += operacion.monto;
+  acc[fechaMMAA]["balance"] = acc[fechaMMAA]["ingresos"] - acc[fechaMMAA]["gastos"];
+
+  return acc;
+}, {})
+console.log(listaOperaciones)
+console.log(totalMeses)
+
+// totales por categoria
+const totalesCategoria = listaOperaciones.reduce((acc, operacion)=>{
+  const categorias = operacion.categoria;
+
+  if(!acc[categorias]){
+    acc[categorias]={
+      ingresos: 0,
+      gastos: 0,
+      balance: 0,
+    }
+  }
+  acc[categorias][operacion.tipo] += operacion.monto;
+  acc[categorias]["balance"] = acc[categorias]["ingresos"]-acc[categorias]["gastos"];
+
+  return acc;
+}, {})
+console.log(totalesCategoria)
+
+// lista nueva para reportes ---- total de op con fechaMMAA
 const listaReportes = listaOperaciones.reduce((acc, operacion) => {
-  const mes = new Date(operacion.fecha).getMonth() + 1;
-  const anio = new Date(operacion.fecha).getFullYear();
+  const fechaNueva = new Date(operacion.fecha)
+  const fechaMMAA = `${fechaNueva.getMonth()+1}/${fechaNueva.getFullYear()}`
+  
   const operaciones = {
     categoria: operacion.categoria,
     tipo: operacion.tipo,
     monto: operacion.monto,
-    fechaMA: `${mes}/${anio}`,
+    fechaMMAA: fechaMMAA
   };
   return [...acc, operaciones];
 }, []);
 // DETALLE X MAYOR GASTO Y GANANCIA ❌ faltaria ver si hay iguales en montos
-let detalleGastosXCat = listaReportes.reduce((acc, operacion) => {
-  if (operacion.tipo === "gastos" && operacion.fechaMA === "1/2023") {
-    const operaciones = {
-      categoria: operacion.categoria,
-      monto: operacion.monto,
-      fecha: operacion.fechaMA,
-    };
-    return [...acc, operaciones];
-  }
-  return acc;
-}, []);
 // ❌ no me esta tomando el input de fecha
-let detalleIngresosXCat = listaReportes.reduce((acc, operacion) => {
-  if (operacion.tipo === "ingresos" && operacion.fechaMA === "1/2023") {
+let detalleGastosXCat = listaReportes.reduce((acc, operacion) => {
+  const inputFecha = $inputFechaReporte.value
+
+  if (operacion.tipo === "gastos" && operacion.fechaMMAA === "1/2023") {
     const operaciones = {
       categoria: operacion.categoria,
       monto: operacion.monto,
-      fecha: operacion.fechaMA,
+      fecha: operacion.fechaMMAA,
+    };
+  return [...acc, operaciones];
+  }
+  return acc;
+}, []);
+// ordena y selecciona categoria > gasto --- resumen
+detalleGastosXCat = detalleGastosXCat.sort((a, b) => b.monto - a.monto);
+  console.log(detalleGastosXCat[0]);
+
+let detalleIngXCat = listaReportes.reduce((acc, operacion) => {
+  let inputFecha = $inputFechaReporte.value
+
+  if (operacion.tipo === "ingresos" && operacion.fechaMMAA === "1/2023") {
+    const operaciones = {
+      categoria: operacion.categoria,
+      monto: operacion.monto,
+      fecha: operacion.fechaMMAA,
     };
     return [...acc, operaciones];
   }
   return acc;
 }, []);
+
+// ordena y selecciona categoria > ingreso --- resumen
+detalleIngXCat = detalleIngXCat.sort((a, b) => b.monto - a.monto);
+  console.log(detalleIngXCat[0]);
+
 const detalleReportes = () => {
   $tituloTotalesCat.classList.remove("is-hidden");
   $totalesCat.classList.remove("is-hidden");
   $tituloTotalesMes.classList.remove("is-hidden");
   $totalesMes.classList.remove("is-hidden");
-  detalleGastosXCat = detalleGastosXCat.sort((a, b) => b.monto - a.monto);
-  console.log(detalleGastosXCat[0]);
-  detalleIngresosXCat = detalleIngresosXCat.sort((a, b) => b.monto - a.monto);
-  console.log(detalleIngresosXCat[0]);
 };
 // inicio App
 const inicioApp = () => {
