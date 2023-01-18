@@ -50,16 +50,17 @@ let $contenedorCat = $("#detalle-categorias");
 let $tituloBoxCategoria = $(".titulo-box-categoria");
 let $boxContenedorCat = $(".box-contendor-categorias");
 // reportes
-const $inputFechaReporte = $(".fecha-reporte");
-const $btnFechaReporte = $(".btn-fecha-reporte");
 const $imgReportes = $("#img-reportes");
 const $imgReportesTitulos = $("#img-reportes-titulos");
 const $btnResumenReporte = $(".btn-resumen-reporte");
-const $contenedorFechaReporte = $(".contenedor-fecha-reporte");
 const $tituloTotalesCat = $(".titulo-totales-cat");
 const $totalesCat = $(".totales-cat");
 const $tituloTotalesMes = $(".titulo-totales-mes");
 const $totalesMes = $(".totales-mes");
+const $repoResumen = $(".repo-resumen");
+const $tituloResumen = $(".titulo-resumen");
+const $detalleResuMes = $("#contenedor-detalle-resumen-mes");
+const $detalleResuCat = $("#contenedor-detalle-resumen-cat");
 
 // FUNCIONES
 // ***  VISTAS ***
@@ -416,7 +417,6 @@ const cerrarBoxEdit = () => {
 const ocultarImgReportes = () => {
   $imgReportes.classList.add("is-hidden");
   $imgReportesTitulos.classList.add("is-hidden");
-  $contenedorFechaReporte.classList.remove("is-hidden");
 };
 // totales por mes
 const totalMeses = listaOperaciones.reduce((acc, operacion)=>{
@@ -435,8 +435,6 @@ const totalMeses = listaOperaciones.reduce((acc, operacion)=>{
 
   return acc;
 }, {})
-console.log(listaOperaciones)
-console.log(totalMeses)
 
 // totales por categoria
 const totalesCategoria = listaOperaciones.reduce((acc, operacion)=>{
@@ -454,63 +452,80 @@ const totalesCategoria = listaOperaciones.reduce((acc, operacion)=>{
 
   return acc;
 }, {})
-console.log(totalesCategoria)
-
-// lista nueva para reportes ---- total de op con fechaMMAA
-const listaReportes = listaOperaciones.reduce((acc, operacion) => {
-  const fechaNueva = new Date(operacion.fecha)
-  const fechaMMAA = `${fechaNueva.getMonth()+1}/${fechaNueva.getFullYear()}`
-  
-  const operaciones = {
-    categoria: operacion.categoria,
-    tipo: operacion.tipo,
-    monto: operacion.monto,
-    fechaMMAA: fechaMMAA
-  };
-  return [...acc, operaciones];
-}, []);
-// DETALLE X MAYOR GASTO Y GANANCIA ❌ faltaria ver si hay iguales en montos
-// ❌ no me esta tomando el input de fecha
-let detalleGastosXCat = listaReportes.reduce((acc, operacion) => {
-  const inputFecha = $inputFechaReporte.value
-
-  if (operacion.tipo === "gastos" && operacion.fechaMMAA === "1/2023") {
-    const operaciones = {
-      categoria: operacion.categoria,
-      monto: operacion.monto,
-      fecha: operacion.fechaMMAA,
-    };
-  return [...acc, operaciones];
+// mostrar total meses
+const mostrarTotalesMes =()=>{
+  const valoresXFecha = Object.keys(totalMeses)
+  for (const fecha of valoresXFecha) {
+    $detalleResuMes.innerHTML += `
+  <div class="columns mx-4">
+  <div class="has-text-weight-medium column ml-6 p-1">${fecha}</div>
+  <div class="column ml-6 has-text-success">+$${totalMeses[fecha]["ingresos"]}</div>
+  <div class="column ml-6 has-text-danger">-$${totalMeses[fecha]["gastos"]}</div>
+  <div class="column ml-6">$${totalMeses[fecha]["balance"]}</div>
+  </div>
+  `
   }
-  return acc;
-}, []);
-// ordena y selecciona categoria > gasto --- resumen
-detalleGastosXCat = detalleGastosXCat.sort((a, b) => b.monto - a.monto);
-  console.log(detalleGastosXCat[0]);
-
-let detalleIngXCat = listaReportes.reduce((acc, operacion) => {
-  let inputFecha = $inputFechaReporte.value
-
-  if (operacion.tipo === "ingresos" && operacion.fechaMMAA === "1/2023") {
-    const operaciones = {
-      categoria: operacion.categoria,
-      monto: operacion.monto,
-      fecha: operacion.fechaMMAA,
-    };
-    return [...acc, operaciones];
+};
+//mostrar total por categoria
+const mostrarTotalesCat =()=>{
+  const valoresXCat = Object.keys(totalesCategoria)
+  for (const categoria of valoresXCat) {
+  $detalleResuCat.innerHTML += `
+  <div class="columns mx-4">
+  <div class="has-text-weight-medium column ml-6 is-capitalized">${categoria}</div>
+  <div class="column ml-6 has-text-success">+$${totalesCategoria[categoria]["ingresos"]}</div>
+  <div class="column ml-6 has-text-danger">-$${totalesCategoria[categoria]["gastos"]}</div>
+  <div class="column ml-6">$${totalesCategoria[categoria]["balance"]}</div>
+  </div>
+  `
   }
-  return acc;
-}, []);
+};
+// mostrar resumen
+const mostrarResumen = () =>{
+  const ordenaXMontoIng =listaOperaciones.filter((operacion)=>operacion.tipo === "ingresos").sort((a, b)=>b.monto-a.monto)
+// console.log(ordenaXMontoIng)
+// console.log(ordenaXMontoIng[0].categoria+"----"+ordenaXMontoIng[0].monto)
+const ordenaXMontoGastos =listaOperaciones.filter((operacion)=>operacion.tipo === "gastos").sort((a, b)=>b.monto-a.monto)
+  $repoResumen.innerHTML += `
+  <div class="columns mx-6">
+  <div class="column has-text-weight-medium is-half">Categoria con mayor Ingreso</div>
+  <div class="column"><span class="tag is-primary is-light">${ordenaXMontoIng[0].categoria}</span></div>
+  <div class="column has-text-success">+$${ordenaXMontoIng[0].monto}</div>
+  </div>
+  <div class="columns mx-6">
+  <div class="column has-text-weight-medium is-half">Categoria con mayor Gasto</div>
+  <div class="column"><span class="tag is-primary is-light">${ordenaXMontoGastos[0].categoria}</span></div>
+  <div class="column has-text-danger">-$${ordenaXMontoGastos[0].monto}</div>
+  </div>
+  <div class="columns mx-6">
+  <div class="column has-text-weight-medium is-half">Categoria con mayor Balance</div>
+  <div class="column"><span class="tag is-primary is-light">cat</span></div>
+  <div class="column">valor</div>
+  </div>
+  <div class="columns mx-6">
+  <div class="column has-text-weight-medium is-half">Mes con mayor Ingresos</div>
+  <div class="column"><span>mes</span></div>
+  <div class="column">valor</div>
+  </div>
+  <div class="columns mx-6">
+  <div class="column has-text-weight-medium is-half">Mes con mayor Gasto</div>
+  <div class="column"><span>mes</span></div>
+  <div class="column">valor</div>
+  </div>
 
-// ordena y selecciona categoria > ingreso --- resumen
-detalleIngXCat = detalleIngXCat.sort((a, b) => b.monto - a.monto);
-  console.log(detalleIngXCat[0]);
-
+  `
+}
 const detalleReportes = () => {
+  ocultarImgReportes();
+  $tituloResumen.classList.remove("is-hidden")
+  $repoResumen.classList.remove("is-hidden")
   $tituloTotalesCat.classList.remove("is-hidden");
   $totalesCat.classList.remove("is-hidden");
   $tituloTotalesMes.classList.remove("is-hidden");
   $totalesMes.classList.remove("is-hidden");
+  mostrarTotalesMes();
+  mostrarTotalesCat();
+  mostrarResumen();
 };
 // inicio App
 const inicioApp = () => {
@@ -543,5 +558,4 @@ $filtroOrdenX.addEventListener("input", filtros);
 // agregar categoria
 $btnAgregarCat.addEventListener("click", agregarCategoria);
 // reportes
-$btnResumenReporte.addEventListener("click", ocultarImgReportes);
-$btnFechaReporte.addEventListener("click", detalleReportes);
+$btnResumenReporte.addEventListener("click", detalleReportes);
