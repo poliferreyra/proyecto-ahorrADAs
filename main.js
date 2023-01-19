@@ -327,16 +327,15 @@ const mostrarDetalleCategorias = () => {
     divCategoria.classList.add("columns");
     divCategoria.innerHTML += `
       <div class="column is-four-fifths">
-      <span class="tag is-primary is-light">${dato.nombre}</span>
+        <span class="tag is-primary is-light">${dato.nombre}</span>
       </div>
       <div class="column">
-      <button class="button is-ghost is-small btn-editar-cat">
-      Editar
-      </button>
-      <button class="button is-ghost is-small btn-eliminar-cat">
-      Eliminar
-      </button>
-      </div>
+        <button class="button is-ghost is-small btn-editar-cat">
+          Editar
+        </button>
+        <button class="button is-ghost is-small btn-eliminar-cat">
+          Eliminar
+        </button>
       </div>
       `;
     const btnEditarCategoria = divCategoria.querySelector(".btn-editar-cat");
@@ -419,73 +418,58 @@ const ocultarImgReportes = () => {
   $imgReportesTitulos.classList.add("is-hidden");
 };
 // totales por mes
-const totalMeses = listaOperaciones.reduce((acc, operacion)=>{
-  const fechaNueva = new Date(operacion.fecha)
-  const fechaMMAA = `${fechaNueva.getMonth()+1}/${fechaNueva.getFullYear()}`
+const totalMeses = listaOperaciones.reduce((acc, operacion) => {
+  const fechaNueva = new Date(operacion.fecha);
+  const fechaMMAA = `${fechaNueva.getMonth() + 1}/${fechaNueva.getFullYear()}`;
 
-  if(!acc[fechaMMAA]){
+  if (!acc[fechaMMAA]) {
     acc[fechaMMAA] = {
       ingresos: 0,
       gastos: 0,
-      balance: 0
-    }
+      balance: 0,
+    };
   }
   acc[fechaMMAA][operacion.tipo] += operacion.monto;
-  acc[fechaMMAA]["balance"] = acc[fechaMMAA]["ingresos"] - acc[fechaMMAA]["gastos"];
+  acc[fechaMMAA]["balance"] =
+    acc[fechaMMAA]["ingresos"] - acc[fechaMMAA]["gastos"];
 
   return acc;
-}, {})
-
+}, {});
 // totales por categoria
-const totalesCategoria = listaOperaciones.reduce((acc, operacion)=>{
+const totalesCategoria = listaOperaciones.reduce((acc, operacion) => {
   const categorias = operacion.categoria;
 
-  if(!acc[categorias]){
-    acc[categorias]={
+  if (!acc[categorias]) {
+    acc[categorias] = {
       ingresos: 0,
       gastos: 0,
       balance: 0,
-    }
+    };
   }
   acc[categorias][operacion.tipo] += operacion.monto;
-  acc[categorias]["balance"] = acc[categorias]["ingresos"]-acc[categorias]["gastos"];
+  acc[categorias]["balance"] =
+    acc[categorias]["ingresos"] - acc[categorias]["gastos"];
 
   return acc;
-}, {})
-// mostrar total meses
-const mostrarTotalesMes =()=>{
-  const valoresXFecha = Object.keys(totalMeses)
-  for (const fecha of valoresXFecha) {
-    $detalleResuMes.innerHTML += `
-  <div class="columns mx-4">
-  <div class="has-text-weight-medium column ml-6 p-1">${fecha}</div>
-  <div class="column ml-6 has-text-success">+$${totalMeses[fecha]["ingresos"]}</div>
-  <div class="column ml-6 has-text-danger">-$${totalMeses[fecha]["gastos"]}</div>
-  <div class="column ml-6">$${totalMeses[fecha]["balance"]}</div>
-  </div>
-  `
-  }
-};
-//mostrar total por categoria
-const mostrarTotalesCat =()=>{
-  const valoresXCat = Object.keys(totalesCategoria)
-  for (const categoria of valoresXCat) {
-  $detalleResuCat.innerHTML += `
-  <div class="columns mx-4">
-  <div class="has-text-weight-medium column ml-6 is-capitalized">${categoria}</div>
-  <div class="column ml-6 has-text-success">+$${totalesCategoria[categoria]["ingresos"]}</div>
-  <div class="column ml-6 has-text-danger">-$${totalesCategoria[categoria]["gastos"]}</div>
-  <div class="column ml-6">$${totalesCategoria[categoria]["balance"]}</div>
-  </div>
-  `
-  }
-};
+}, {});
 // mostrar resumen
-const mostrarResumen = () =>{
-  const ordenaXMontoIng =listaOperaciones.filter((operacion)=>operacion.tipo === "ingresos").sort((a, b)=>b.monto-a.monto)
-// console.log(ordenaXMontoIng)
-// console.log(ordenaXMontoIng[0].categoria+"----"+ordenaXMontoIng[0].monto)
-const ordenaXMontoGastos =listaOperaciones.filter((operacion)=>operacion.tipo === "gastos").sort((a, b)=>b.monto-a.monto)
+const mostrarResumen = () => {
+  const ordenaXMontoIng = listaOperaciones
+    .filter((operacion) => operacion.tipo === "ingresos")
+    .sort((a, b) => b.monto - a.monto);
+
+  const ordenaXMontoGastos = listaOperaciones
+    .filter((operacion) => operacion.tipo === "gastos")
+    .sort((a, b) => b.monto - a.monto);
+
+  const catBalance = Object.entries(totalesCategoria);
+  const ordenXbalance = catBalance.sort(
+    (a, b) => b[1]["balance"] - a[1]["balance"]
+  );
+  const mesMayorIngreso = Object.entries(totalMeses).sort((a,b)=>b[1]["ingresos"]-a[1]["ingresos"]);
+  const mesMayorGasto = Object.entries(totalMeses).sort((a,b)=>b[1]["gastos"]-a[1]["gastos"]);
+  // entries - me devuelve un array en donde la posicion 0 es la key y la posicion 1 es el value.
+  // luego con sort y las posiciones encuentro, en este caso el mayor
   $repoResumen.innerHTML += `
   <div class="columns mx-6">
   <div class="column has-text-weight-medium is-half">Categoria con mayor Ingreso</div>
@@ -499,26 +483,53 @@ const ordenaXMontoGastos =listaOperaciones.filter((operacion)=>operacion.tipo ==
   </div>
   <div class="columns mx-6">
   <div class="column has-text-weight-medium is-half">Categoria con mayor Balance</div>
-  <div class="column"><span class="tag is-primary is-light">cat</span></div>
-  <div class="column">valor</div>
+  <div class="column"><span class="tag is-primary is-light">${ordenXbalance[0]["0"]}</span></div>
+  <div class="column">$${ordenXbalance[0][1]["balance"]}</div>
   </div>
   <div class="columns mx-6">
   <div class="column has-text-weight-medium is-half">Mes con mayor Ingresos</div>
-  <div class="column"><span>mes</span></div>
-  <div class="column">valor</div>
+  <div class="column"><span>${mesMayorIngreso[0]["0"]}</span></div>
+  <div class="column has-text-success">+$${mesMayorIngreso[0][1]["ingresos"]}</div>
   </div>
   <div class="columns mx-6">
   <div class="column has-text-weight-medium is-half">Mes con mayor Gasto</div>
-  <div class="column"><span>mes</span></div>
-  <div class="column">valor</div>
+  <div class="column"><span>${mesMayorGasto[0]["0"]}</span></div>
+  <div class="column has-text-danger">-$${mesMayorGasto[0][1]["gastos"]}</div>
   </div>
-
-  `
-}
+  `;
+};
+// mostrar total meses
+const mostrarTotalesMes = () => {
+  const valoresXFecha = Object.keys(totalMeses);
+  for (const fecha of valoresXFecha) {
+    $detalleResuMes.innerHTML += `
+  <div class="columns mx-4">
+  <div class="has-text-weight-medium column ml-6 p-1">${fecha}</div>
+  <div class="column ml-6 has-text-success">+$${totalMeses[fecha]["ingresos"]}</div>
+  <div class="column ml-6 has-text-danger">-$${totalMeses[fecha]["gastos"]}</div>
+  <div class="column ml-6">$${totalMeses[fecha]["balance"]}</div>
+  </div>
+  `;
+  }
+};
+//mostrar total por categoria
+const mostrarTotalesCat = () => {
+  const valoresXCat = Object.keys(totalesCategoria);
+  for (const categoria of valoresXCat) {
+    $detalleResuCat.innerHTML += `
+  <div class="columns mx-4">
+  <div class="has-text-weight-medium column ml-6 is-capitalized">${categoria}</div>
+  <div class="column ml-6 has-text-success">+$${totalesCategoria[categoria]["ingresos"]}</div>
+  <div class="column ml-6 has-text-danger">-$${totalesCategoria[categoria]["gastos"]}</div>
+  <div class="column ml-6">$${totalesCategoria[categoria]["balance"]}</div>
+  </div>
+  `;
+  }
+};
 const detalleReportes = () => {
   ocultarImgReportes();
-  $tituloResumen.classList.remove("is-hidden")
-  $repoResumen.classList.remove("is-hidden")
+  $tituloResumen.classList.remove("is-hidden");
+  $repoResumen.classList.remove("is-hidden");
   $tituloTotalesCat.classList.remove("is-hidden");
   $totalesCat.classList.remove("is-hidden");
   $tituloTotalesMes.classList.remove("is-hidden");

@@ -13,7 +13,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"
     />
-    <!-- favicon para la pestaña de la pagina-->
+    <!-- favicon -->
     <link rel="icon" type="image/jpg" href="/assets/favicon.png" />
     <!-- css -->
     <link rel="stylesheet" href="style.css" />
@@ -303,7 +303,7 @@
             </div>
           </div>
           <!-- lista de categorías -->
-          <div id="detalle-categorias"></div>
+          <div id="detalle-categorias" class="container"></div>
         </div>
       </div>
     </section>
@@ -336,8 +336,11 @@
           <div class="container mx-2 is-hidden repo-resumen"></div>
           <!-- totales por categoria-->
           <div class="my-4 mx-6 is-hidden titulo-totales-cat">
-            <h5 class="title is-size-5 has-text-primary">Totales por categoría</h5>
+            <h5 class="title is-size-5 has-text-primary">
+              Totales por categoría
+            </h5>
           </div>
+          <!-- titulos-->
           <div class="container mx-2 is-hidden totales-cat">
             <div class="columns mx-4">
               <div class="has-text-weight-bold column mx-6">Mes</div>
@@ -351,6 +354,7 @@
           <div class="my-4 mx-6 is-hidden titulo-totales-mes">
             <h5 class="title is-size-5 has-text-primary">Totales por Mes</h5>
           </div>
+          <!-- titulos -->
           <div class="container mx-2 is-hidden totales-mes">
             <div class="columns mx-4">
               <div class="has-text-weight-bold column mx-6">Mes</div>
@@ -365,6 +369,5 @@
     </section>
 
     <script src="main.js"></script>
-    <!-- <script src="prueba.js"></script> -->
   </body>
 </html>
