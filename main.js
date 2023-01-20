@@ -1,7 +1,7 @@
 // funcion maestra
 const $ = (selector) => document.querySelector(selector);
 
-// ELEMENTOS DEL DOM
+// ****************** ELEMENTOS DEL DOM *************************************
 // navBar
 const $btnHambur = $(".navbar-burger");
 const $navBarEnd = $(".navbar-menu");
@@ -62,8 +62,8 @@ const $tituloResumen = $(".titulo-resumen");
 const $detalleResuMes = $("#contenedor-detalle-resumen-mes");
 const $detalleResuCat = $("#contenedor-detalle-resumen-cat");
 
-// FUNCIONES
-// ***  VISTAS ***
+// ****************** FUNCIONES **********************************
+// ****************** VISTAS *************************************
 // menu hamburguesa
 const menuHamburActivo = () => {
   $navBarEnd.classList.toggle("is-active");
@@ -178,7 +178,7 @@ const filtros = () => {
   $boxCtlVBalance.classList.add("is-hidden");
   mostrarDetalle(detalle);
 };
-// *** OPERACIONES ***
+// ****************** OPERACIONES *************************************
 // array y objeto para nueva operacion
 let listaOperaciones = JSON.parse(localStorage.getItem("operacionNueva")) || [];
 
@@ -289,7 +289,7 @@ const modifOpEditada = (id) => {
   vistaBalance();
   opEditada = null;
 };
-// *** CATEGORIAS ***
+// ****************** CATEGORIAS *************************************
 // agregar categoria
 let listaCategoriasLocal =
   JSON.parse(localStorage.getItem("categoriaNueva")) || [];
@@ -326,18 +326,18 @@ const mostrarDetalleCategorias = () => {
     let divCategoria = document.createElement("div");
     divCategoria.classList.add("columns");
     divCategoria.innerHTML += `
-      <div class="column is-four-fifths">
-        <span class="tag is-primary is-light">${dato.nombre}</span>
-      </div>
-      <div class="column">
-        <button class="button is-ghost is-small btn-editar-cat">
-          Editar
-        </button>
-        <button class="button is-ghost is-small btn-eliminar-cat">
-          Eliminar
-        </button>
-      </div>
-      `;
+    <div class="column is-four-fifths">
+    <span class="tag is-primary is-light">${dato.nombre}</span>
+    </div>
+    <div class="column">
+    <button class="button is-ghost is-small btn-editar-cat">
+    Editar
+    </button>
+    <button class="button is-ghost is-small btn-eliminar-cat">
+    Eliminar
+    </button>
+    </div>
+     `;
     const btnEditarCategoria = divCategoria.querySelector(".btn-editar-cat");
     btnEditarCategoria.onclick = function () {
       editarCategoria(dato.id);
@@ -366,12 +366,12 @@ const editarCategoria = (id) => {
   divCategoriaEditada.classList.add("container", "columns");
 
   divCategoriaEditada.innerHTML += `
-          <div id="botones-cat-edit" class="column field is-grouped is-grouped-right">
-          <button id="btnCancelarOperacion" class="button m-2">Cancelar</button>
-          <button id="btnModificarCategoria" class="button is-primary m-2">
-            Editar
-          </button>
-        </div>
+    <div id="botones-cat-edit" class="column field is-grouped is-grouped-right">
+    <button id="btnCancelarOperacion" class="button m-2">Cancelar</button>
+    <button id="btnModificarCategoria" class="button is-primary m-2">
+    Editar
+    </button>
+    </div>
     `;
   modificarCategoria = listaCategoriasLocal.find((dato) => dato.id === id);
   $inputAgregarCat.value = modificarCategoria["nombre"];
@@ -412,7 +412,7 @@ const cerrarBoxEdit = () => {
   $btnAgregarCat.classList.remove("is-hidden");
   $contenedorCat.classList.remove("is-hidden");
 };
-// *** REPORTES ***
+// ****************** REPORTES *************************************
 const ocultarImgReportes = () => {
   $imgReportes.classList.add("is-hidden");
   $imgReportesTitulos.classList.add("is-hidden");
@@ -466,8 +466,12 @@ const mostrarResumen = () => {
   const ordenXbalance = catBalance.sort(
     (a, b) => b[1]["balance"] - a[1]["balance"]
   );
-  const mesMayorIngreso = Object.entries(totalMeses).sort((a,b)=>b[1]["ingresos"]-a[1]["ingresos"]);
-  const mesMayorGasto = Object.entries(totalMeses).sort((a,b)=>b[1]["gastos"]-a[1]["gastos"]);
+  const mesMayorIngreso = Object.entries(totalMeses).sort(
+    (a, b) => b[1]["ingresos"] - a[1]["ingresos"]
+  );
+  const mesMayorGasto = Object.entries(totalMeses).sort(
+    (a, b) => b[1]["gastos"] - a[1]["gastos"]
+  );
   // entries - me devuelve un array en donde la posicion 0 es la key y la posicion 1 es el value.
   // luego con sort y las posiciones encuentro, en este caso el mayor
   $repoResumen.innerHTML += `
@@ -546,7 +550,7 @@ const inicioApp = () => {
   mostrarFiltrosCategorias();
 };
 inicioApp();
-// EVENTOS
+// ****************** EVENTOS *************************************
 // menu hamburguesa
 $btnHambur.addEventListener("click", menuHamburActivo);
 // vista balance

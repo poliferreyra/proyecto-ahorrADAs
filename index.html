@@ -175,7 +175,10 @@
             <!-- contenedor para detalle operaciones -->
             <!-- Encabezado tabla -->
             <div class="container">
-              <div id="titulos-detalle" class="columns is-hidden">
+              <div
+                id="titulos-detalle"
+                class="columns is-hidden is-hidden-mobile"
+              >
                 <div class="has-text-weight-bold column">Descripción</div>
                 <div class="has-text-weight-bold column">Categoría</div>
                 <div class="has-text-weight-bold column">Fecha</div>
@@ -309,61 +312,59 @@
     </section>
     <!-- REPORTES -->
     <section id="contenedor-reportes" class="section">
-      <div class="container column is-8">
-        <div class="box">
-          <div class="columns">
-            <div class="column"><h1 class="title">Reportes</h1></div>
+      <div class="box">
+        <div class="columns">
+          <div class="column"><h1 class="title">Reportes</h1></div>
+        </div>
+        <!-- operaciones - imagen y texto -->
+        <div id="img-reportes" class="image">
+          <img src="assets/reportes.png" />
+        </div>
+        <div id="img-reportes-titulos">
+          <h3 class="title is-4 mb-1 has-text-centered">
+            Detalle de operaciones
+          </h3>
+          <div class="has-text-centered">
+            <button class="button is-ghost btn-resumen-reporte">
+              Hace click aquí
+            </button>
           </div>
-          <!-- operaciones - imagen y texto -->
-          <div id="img-reportes" class="image">
-            <img src="assets/reportes.png" />
+        </div>
+        <!-- mostrar reportes -->
+        <!-- resumen-->
+        <div class="my-4 mx-6 is-hidden titulo-resumen">
+          <h5 class="title is-size-5 has-text-primary">Resumen</h5>
+        </div>
+        <div class="container mx-2 is-hidden repo-resumen"></div>
+        <!-- totales por categoria-->
+        <div class="my-4 mx-6 is-hidden titulo-totales-cat">
+          <h5 class="title is-size-5 has-text-primary">
+            Totales por categoría
+          </h5>
+        </div>
+        <!-- titulos-->
+        <div class="container mx-2 is-hidden totales-cat">
+          <div class="columns mx-4 is-hidden-mobile">
+            <div class="has-text-weight-bold column mx-6">Mes</div>
+            <div class="has-text-weight-bold column mx-6">Ingresos</div>
+            <div class="has-text-weight-bold column mx-6">Gastos</div>
+            <div class="has-text-weight-bold column mx-6">Balance</div>
           </div>
-          <div id="img-reportes-titulos">
-            <h3 class="title is-4 mb-1 has-text-centered">
-              Detalle de operaciones
-            </h3>
-            <div class="has-text-centered">
-              <button class="button is-ghost btn-resumen-reporte">
-                Hace click aquí
-              </button>
-            </div>
+          <div id="contenedor-detalle-resumen-cat"></div>
+        </div>
+        <!-- totales por mes -->
+        <div class="my-4 mx-6 is-hidden titulo-totales-mes">
+          <h5 class="title is-size-5 has-text-primary">Totales por Mes</h5>
+        </div>
+        <!-- titulos -->
+        <div class="container mx-2 is-hidden totales-mes">
+          <div class="columns mx-4 is-hidden-mobile">
+            <div class="has-text-weight-bold column mx-6">Mes</div>
+            <div class="has-text-weight-bold column mx-6">Ingresos</div>
+            <div class="has-text-weight-bold column mx-6">Gastos</div>
+            <div class="has-text-weight-bold column mx-6">Balance</div>
           </div>
-          <!-- mostrar reportes -->
-          <!-- resumen-->
-          <div class="my-4 mx-6 is-hidden titulo-resumen">
-            <h5 class="title is-size-5 has-text-primary">Resumen</h5>
-          </div>
-          <div class="container mx-2 is-hidden repo-resumen"></div>
-          <!-- totales por categoria-->
-          <div class="my-4 mx-6 is-hidden titulo-totales-cat">
-            <h5 class="title is-size-5 has-text-primary">
-              Totales por categoría
-            </h5>
-          </div>
-          <!-- titulos-->
-          <div class="container mx-2 is-hidden totales-cat">
-            <div class="columns mx-4">
-              <div class="has-text-weight-bold column mx-6">Mes</div>
-              <div class="has-text-weight-bold column mx-6">Ingresos</div>
-              <div class="has-text-weight-bold column mx-6">Gastos</div>
-              <div class="has-text-weight-bold column mx-6">Balance</div>
-            </div>
-            <div id="contenedor-detalle-resumen-cat"></div>
-          </div>
-          <!-- totales por mes -->
-          <div class="my-4 mx-6 is-hidden titulo-totales-mes">
-            <h5 class="title is-size-5 has-text-primary">Totales por Mes</h5>
-          </div>
-          <!-- titulos -->
-          <div class="container mx-2 is-hidden totales-mes">
-            <div class="columns mx-4">
-              <div class="has-text-weight-bold column mx-6">Mes</div>
-              <div class="has-text-weight-bold column mx-6">Ingresos</div>
-              <div class="has-text-weight-bold column mx-6">Gastos</div>
-              <div class="has-text-weight-bold column mx-6">Balance</div>
-            </div>
-            <div id="contenedor-detalle-resumen-mes"></div>
-          </div>
+          <div id="contenedor-detalle-resumen-mes"></div>
         </div>
       </div>
     </section>
