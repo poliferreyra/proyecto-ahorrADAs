@@ -118,8 +118,8 @@ const mostrarValores = () => {
   );
   const totalGral = totalIngresos - totalGastos;
 
-  $totalIngresos.innerText = `$ ${totalIngresos}`;
-  $totalGastos.innerText = `$ ${totalGastos}`;
+  $totalIngresos.innerText = `+$ ${totalIngresos}`;
+  $totalGastos.innerText = `-$ ${totalGastos}`;
   $saldoTotal.innerText = `$ ${totalGral}`;
 };
 // filtros
@@ -211,19 +211,19 @@ const mostrarDetalle = (datos) => {
   $detalleOperaciones.innerHTML = "";
   for (const { descripcion, categoria, fecha, monto, id } of datos) {
     let contenedorOperacion = document.createElement("div");
-    contenedorOperacion.classList.add("container");
+    contenedorOperacion.classList.add("container")
     contenedorOperacion.innerHTML += `
     <!-- Contenido tabla -->
-    <div class="columns">
+    <div class="columns is-mobile">
     <div class="column">${descripcion}</div>
     <div class="column">
     <span class="tag is-primary is-light">
     ${categoria}
     </span>
     </div>
-    <div class="column">${fecha}</div>
-    <div class="column">$ ${monto}</div>
-    <div class="column is-size-7 is-flex">
+    <div class="column is-hidden-mobile">${fecha}</div>
+    <div class="column monto-detalle">$${monto}</div>
+    <div class="column is-flex">
     <button class="button is-ghost is-small editarOp">Editar</button>
     <button class="button is-ghost is-small eliminarOp">Eliminar</button>
     </div)
@@ -324,12 +324,12 @@ const mostrarDetalleCategorias = () => {
   );
   for (const dato of filtroCat) {
     let divCategoria = document.createElement("div");
-    divCategoria.classList.add("columns");
+    divCategoria.classList.add("columns","is-mobile");
     divCategoria.innerHTML += `
-    <div class="column is-four-fifths">
+    <div class="column">
     <span class="tag is-primary is-light">${dato.nombre}</span>
     </div>
-    <div class="column">
+    <div class="column is-flex p-1">
     <button class="button is-ghost is-small btn-editar-cat">
     Editar
     </button>
@@ -475,30 +475,30 @@ const mostrarResumen = () => {
   // entries - me devuelve un array en donde la posicion 0 es la key y la posicion 1 es el value.
   // luego con sort y las posiciones encuentro, en este caso el mayor
   $repoResumen.innerHTML += `
-  <div class="columns mx-6">
-  <div class="column has-text-weight-medium is-half">Categoria con mayor Ingreso</div>
-  <div class="column"><span class="tag is-primary is-light">${ordenaXMontoIng[0].categoria}</span></div>
-  <div class="column has-text-success">+$${ordenaXMontoIng[0].monto}</div>
+  <div class="columns is-mobile">
+  <div class="column is-size-6-mobile has-text-weight-medium is-half">Categoria con mayor Ingreso</div>
+  <div class="column is-size-7-mobile"><span class="tag is-primary is-light">${ordenaXMontoIng[0].categoria}</span></div>
+  <div class="column is-size-7-mobile has-text-success">+$${ordenaXMontoIng[0].monto}</div>
   </div>
-  <div class="columns mx-6">
-  <div class="column has-text-weight-medium is-half">Categoria con mayor Gasto</div>
-  <div class="column"><span class="tag is-primary is-light">${ordenaXMontoGastos[0].categoria}</span></div>
-  <div class="column has-text-danger">-$${ordenaXMontoGastos[0].monto}</div>
+  <div class="columns is-mobile">
+  <div class="column is-size-6-mobile has-text-weight-medium is-half">Categoria con mayor Gasto</div>
+  <div class="column is-size-7-mobile"><span class="tag is-primary is-light">${ordenaXMontoGastos[0].categoria}</span></div>
+  <div class="column is-size-7-mobile has-text-danger">-$${ordenaXMontoGastos[0].monto}</div>
   </div>
-  <div class="columns mx-6">
-  <div class="column has-text-weight-medium is-half">Categoria con mayor Balance</div>
-  <div class="column"><span class="tag is-primary is-light">${ordenXbalance[0]["0"]}</span></div>
-  <div class="column">$${ordenXbalance[0][1]["balance"]}</div>
+  <div class="columns is-mobile">
+  <div class="column is-size-6-mobile has-text-weight-medium is-half">Categoria con mayor Balance</div>
+  <div class="column is-size-67-mobile"><span class="tag is-primary is-light">${ordenXbalance[0]["0"]}</span></div>
+  <div class="column is-size-67-mobile">$${ordenXbalance[0][1]["balance"]}</div>
   </div>
-  <div class="columns mx-6">
-  <div class="column has-text-weight-medium is-half">Mes con mayor Ingresos</div>
-  <div class="column"><span>${mesMayorIngreso[0]["0"]}</span></div>
-  <div class="column has-text-success">+$${mesMayorIngreso[0][1]["ingresos"]}</div>
+  <div class="columns is-mobile">
+  <div class="column is-size-6-mobile has-text-weight-medium is-half">Mes con mayor Ingresos</div>
+  <div class="column is-size-7-mobile"><span>${mesMayorIngreso[0]["0"]}</span></div>
+  <div class="column is-size-7-mobile has-text-success">+$${mesMayorIngreso[0][1]["ingresos"]}</div>
   </div>
-  <div class="columns mx-6">
-  <div class="column has-text-weight-medium is-half">Mes con mayor Gasto</div>
-  <div class="column"><span>${mesMayorGasto[0]["0"]}</span></div>
-  <div class="column has-text-danger">-$${mesMayorGasto[0][1]["gastos"]}</div>
+  <div class="columns is-mobile">
+  <div class="column is-size-6-mobile has-text-weight-medium is-half">Mes con mayor Gasto</div>
+  <div class="column is-size-7-mobile"><span>${mesMayorGasto[0]["0"]}</span></div>
+  <div class="column is-size-7-mobile has-text-danger">-$${mesMayorGasto[0][1]["gastos"]}</div>
   </div>
   `;
 };
@@ -507,11 +507,11 @@ const mostrarTotalesMes = () => {
   const valoresXFecha = Object.keys(totalMeses);
   for (const fecha of valoresXFecha) {
     $detalleResuMes.innerHTML += `
-  <div class="columns mx-4">
-  <div class="has-text-weight-medium column ml-6 p-1">${fecha}</div>
-  <div class="column ml-6 has-text-success">+$${totalMeses[fecha]["ingresos"]}</div>
-  <div class="column ml-6 has-text-danger">-$${totalMeses[fecha]["gastos"]}</div>
-  <div class="column ml-6">$${totalMeses[fecha]["balance"]}</div>
+  <div class="columns is-mobile">
+  <div class="has-text-weight-medium column is-size-6-mobile">${fecha}</div>
+  <div class="column is-size-7-mobile has-text-success">+$${totalMeses[fecha]["ingresos"]}</div>
+  <div class="column is-size-7-mobile has-text-danger">-$${totalMeses[fecha]["gastos"]}</div>
+  <div class="column is-size-7-mobile">$${totalMeses[fecha]["balance"]}</div>
   </div>
   `;
   }
@@ -521,11 +521,11 @@ const mostrarTotalesCat = () => {
   const valoresXCat = Object.keys(totalesCategoria);
   for (const categoria of valoresXCat) {
     $detalleResuCat.innerHTML += `
-  <div class="columns mx-4">
-  <div class="has-text-weight-medium column ml-6 is-capitalized">${categoria}</div>
-  <div class="column ml-6 has-text-success">+$${totalesCategoria[categoria]["ingresos"]}</div>
-  <div class="column ml-6 has-text-danger">-$${totalesCategoria[categoria]["gastos"]}</div>
-  <div class="column ml-6">$${totalesCategoria[categoria]["balance"]}</div>
+  <div class="columns is-mobile">
+  <div class="has-text-weight-medium column is-size-6-mobile is-capitalized">${categoria}</div>
+  <div class="column is-size-7-mobile has-text-success">+$${totalesCategoria[categoria]["ingresos"]}</div>
+  <div class="column is-size-7-mobile has-text-danger">-$${totalesCategoria[categoria]["gastos"]}</div>
+  <div class="column is-size-7-mobile">$${totalesCategoria[categoria]["balance"]}</div>
   </div>
   `;
   }
