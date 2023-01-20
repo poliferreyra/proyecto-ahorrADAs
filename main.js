@@ -209,7 +209,7 @@ const agregarOperaciones = () => {
 const mostrarDetalle = (datos) => {
   $titulosDetalle.classList.remove("is-hidden");
   $detalleOperaciones.innerHTML = "";
-  for (const { descripcion, categoria, fecha, monto, id } of datos) {
+  for (const { descripcion, categoria, fecha, monto, id,tipo } of datos) {
     let contenedorOperacion = document.createElement("div");
     contenedorOperacion.classList.add("container")
     contenedorOperacion.innerHTML += `
@@ -222,7 +222,7 @@ const mostrarDetalle = (datos) => {
     </span>
     </div>
     <div class="column is-hidden-mobile">${fecha}</div>
-    <div class="column monto-detalle">$${monto}</div>
+    <div class="column ${tipo ==='ingresos'?'has-text-success':'has-text-danger'}">${tipo === "ingresos"?"+":"-"}$${monto}</div>
     <div class="column is-flex">
     <button class="button is-ghost is-small editarOp">Editar</button>
     <button class="button is-ghost is-small eliminarOp">Eliminar</button>
