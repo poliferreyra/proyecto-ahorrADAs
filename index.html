@@ -177,7 +177,7 @@
             <div class="container">
               <div
                 id="titulos-detalle"
-                class="columns is-hidden is-hidden-mobile"
+                class="columns is-hidden-mobile"
               >
                 <div class="has-text-weight-bold column">Descripción</div>
                 <div class="has-text-weight-bold column">Categoría</div>
@@ -245,15 +245,7 @@
               <label for="categoria" class="label">Categoría</label>
               <div class="control">
                 <div class="select is-fullwidth">
-                  <select id="tipo-categoria">
-                    <option value="comida">Comida</option>
-                    <option value="servicios">Servicios</option>
-                    <option value="salidas">Salidas</option>
-                    <option value="educacion">Educación</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="salario">Salario</option>
-                    <option value="compras">Compras</option>
-                  </select>
+                  <select id="tipo-categoria"></select>
                 </div>
               </div>
             </div>
@@ -276,7 +268,10 @@
               <button id="btnCancelarOperacion" class="button m-2">
                 Cancelar
               </button>
-              <button id="btnAgregarOperacion" class="button is-primary m-2">
+              <button
+                id="btnAgregarOperacion"
+                class="button is-primary m-2 is-hidden"
+              >
                 Agregar
               </button>
             </div>
@@ -333,7 +328,9 @@
         <!-- mostrar reportes -->
         <!-- resumen-->
         <div class="my-4 is-hidden titulo-resumen">
-          <h5 class="title is-size-5 has-text-primary is-size-5-mobile">Resumen</h5>
+          <h5 class="title is-size-5 has-text-primary is-size-5-mobile">
+            Resumen
+          </h5>
         </div>
         <div class="container is-hidden repo-resumen"></div>
         <!-- totales por categoria-->
@@ -346,23 +343,37 @@
         <div class="container is-hidden totales-cat">
           <div class="columns is-hidden-mobile">
             <div class="has-text-weight-bold column is-size-6-mobile">Mes</div>
-            <div class="has-text-weight-bold column is-size-6-mobile">Ingresos</div>
-            <div class="has-text-weight-bold column is-size-6-mobile">Gastos</div>
-            <div class="has-text-weight-bold column is-size-6-mobile">Balance</div>
+            <div class="has-text-weight-bold column is-size-6-mobile">
+              Ingresos
+            </div>
+            <div class="has-text-weight-bold column is-size-6-mobile">
+              Gastos
+            </div>
+            <div class="has-text-weight-bold column is-size-6-mobile">
+              Balance
+            </div>
           </div>
           <div id="contenedor-detalle-resumen-cat"></div>
         </div>
         <!-- totales por mes -->
         <div class="my-4 is-hidden titulo-totales-mes">
-          <h5 class="title is-size-5 has-text-primary is-size-5-mobile">Totales por Mes</h5>
+          <h5 class="title is-size-5 has-text-primary is-size-5-mobile">
+            Totales por Mes
+          </h5>
         </div>
         <!-- titulos -->
         <div class="container is-hidden totales-mes">
           <div class="columns is-hidden-mobile">
             <div class="has-text-weight-bold column is-size-6-mobile">Mes</div>
-            <div class="has-text-weight-bold column is-size-6-mobile">Ingresos</div>
-            <div class="has-text-weight-bold column is-size-6-mobile">Gastos</div>
-            <div class="has-text-weight-bold column is-size-6-mobile">Balance</div>
+            <div class="has-text-weight-bold column is-size-6-mobile">
+              Ingresos
+            </div>
+            <div class="has-text-weight-bold column is-size-6-mobile">
+              Gastos
+            </div>
+            <div class="has-text-weight-bold column is-size-6-mobile">
+              Balance
+            </div>
           </div>
           <div id="contenedor-detalle-resumen-mes"></div>
         </div>

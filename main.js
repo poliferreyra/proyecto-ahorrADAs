@@ -92,13 +92,15 @@ const vistaReportes = () => {
 const nuevaOperacion = () => {
   cerrarVistas();
   $boxNuevaOperacion.classList.remove("is-hidden");
+  $btnAgregarOperacion.classList.remove("is-hidden");
+  botonEditar.classList.add("is-hidden");
 };
 const cerrarBoxOperacion = () => {
   $boxNuevaOperacion.classList.toggle("is-hidden");
   $contenedorBalance.classList.toggle("is-hidden");
   $h2BoxOperacion.innerText = "Nueva Operación";
-  $btnAgregarOperacion.classList.toggle("is-hidden");
-  botonEditar.classList.toggle("is-hidden");
+  $btnAgregarOperacion.classList.add("is-hidden");
+  botonEditar.classList.add("is-hidden");
 };
 // vista balance - totales
 const mostrarValores = () => {
@@ -207,11 +209,11 @@ const agregarOperaciones = () => {
 };
 // muestra detalle de operaciones filtradas
 const mostrarDetalle = (datos) => {
-  $titulosDetalle.classList.remove("is-hidden");
+  botonEditar.classList.toggle("is-hidden");
   $detalleOperaciones.innerHTML = "";
-  for (const { descripcion, categoria, fecha, monto, id,tipo } of datos) {
+  for (const { descripcion, categoria, fecha, monto, id, tipo } of datos) {
     let contenedorOperacion = document.createElement("div");
-    contenedorOperacion.classList.add("container")
+    contenedorOperacion.classList.add("container");
     contenedorOperacion.innerHTML += `
     <!-- Contenido tabla -->
     <div class="columns is-mobile">
@@ -222,7 +224,9 @@ const mostrarDetalle = (datos) => {
     </span>
     </div>
     <div class="column is-hidden-mobile">${fecha}</div>
-    <div class="column ${tipo ==='ingresos'?'has-text-success':'has-text-danger'}">${tipo === "ingresos"?"+":"-"}$${monto}</div>
+    <div class="column ${
+      tipo === "ingresos" ? "has-text-success" : "has-text-danger"
+    }">${tipo === "ingresos" ? "+" : "-"}$${monto}</div>
     <div class="column is-flex">
     <button class="button is-ghost is-small editarOp">Editar</button>
     <button class="button is-ghost is-small eliminarOp">Eliminar</button>
@@ -252,12 +256,12 @@ let opEditada;
 let botonEditar = document.createElement("button");
 botonEditar.classList.add("button", "is-primary", "m-2");
 botonEditar.innerText = "Editar";
+$botonesOperacion.append(botonEditar);
 const editarItem = (id) => {
   nuevaOperacion();
   $h2BoxOperacion.innerText = "Editar Operación";
   $btnAgregarOperacion.classList.add("is-hidden");
-
-  $botonesOperacion.append(botonEditar);
+  botonEditar.classList.remove("is-hidden");
 
   opEditada = listaOperaciones.find((item) => item.id === id);
   $descripcion.value = opEditada["descripcion"];
@@ -287,6 +291,7 @@ const modifOpEditada = (id) => {
   mostrarDetalle(listaOperaciones);
   mostrarValores();
   vistaBalance();
+
   opEditada = null;
 };
 // ****************** CATEGORIAS *************************************
@@ -305,12 +310,26 @@ const agregarCategoria = () => {
   localStorage.setItem("categoriaNueva", JSON.stringify(listaCategoriasLocal));
   vistaBalance();
   $inputAgregarCat.value = null;
+  sumaCatInputFiltros();
+  sumaCatNuevaOp();
 };
-// mostrar categorias en input de los filtros
-const mostrarFiltrosCategorias = () => {
+// agrega categorias en input de los filtros
+const sumaCatInputFiltros = () => {
+  $filtroCategoria.innerHTML = `<option value="todos">Todos</option>`;
   for (const dato of listaCategoriasLocal) {
     if (dato.nombre !== "Todos") {
       $filtroCategoria.innerHTML += `
+      <option value="${dato.nombre.toLowerCase()}">${dato.nombre}</option>
+      `;
+    }
+  }
+};
+// agregar categorias en nueva operacion
+const sumaCatNuevaOp = () => {
+  $tipoCategoria.innerHTML = `<option value="todos">Todos</option>`;
+  for (const dato of listaCategoriasLocal) {
+    if (dato.nombre !== "Todos") {
+      $tipoCategoria.innerHTML += `
       <option value="${dato.nombre.toLowerCase()}">${dato.nombre}</option>
       `;
     }
@@ -324,7 +343,7 @@ const mostrarDetalleCategorias = () => {
   );
   for (const dato of filtroCat) {
     let divCategoria = document.createElement("div");
-    divCategoria.classList.add("columns","is-mobile");
+    divCategoria.classList.add("columns", "is-mobile");
     divCategoria.innerHTML += `
     <div class="column">
     <span class="tag is-primary is-light">${dato.nombre}</span>
@@ -346,6 +365,8 @@ const mostrarDetalleCategorias = () => {
       divCategoria.querySelector(".btn-eliminar-cat");
     btnEliminarCategoria.onclick = function () {
       eliminarCategoria(dato.id);
+      sumaCatInputFiltros();
+      sumaCatNuevaOp();
     };
     $contenedorCat.append(divCategoria);
   }
@@ -386,6 +407,8 @@ const editarCategoria = (id) => {
     cerrarBoxEdit();
     mostrarDetalleCategorias();
     $inputAgregarCat.value = null;
+    sumaCatInputFiltros();
+    sumaCatNuevaOp();
   };
   const btnCerrarEdit = divCategoriaEditada.querySelector(
     "#btnCancelarOperacion"
@@ -547,7 +570,8 @@ const inicioApp = () => {
   cerrarVistas();
   vistaBalance();
   mostrarValores();
-  mostrarFiltrosCategorias();
+  sumaCatInputFiltros();
+  sumaCatNuevaOp();
 };
 inicioApp();
 // ****************** EVENTOS *************************************
