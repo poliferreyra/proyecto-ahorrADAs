@@ -9,7 +9,7 @@ El diseño visual esta realizado con [Bulma](http://https://bulma.io/ "Bulma") (
 La app cuenta con tres secciones principales: **BALANCE**, **CATEGORIAS**, **REPORTES** con diseño responsive📱
 
 **BALANCE** ⚖
-En esta sección podrás ingresar cada una de tus operaciones, ver los valores actualizados de ingresos, gastos y el balance entre ambas cuentas. También encontrarás un bloque de filtros para que puedas ver el detatalle de tus movimientos por fecha, categorias etc. Además podrás editar y/o eliminar operaciones como desees. 
+En esta sección podrás ingresar cada una de tus operaciones, ver los valores actualizados de ingresos, gastos y el balance entre ambas cuentas. También encontrarás un bloque de filtros para que puedas ver el detalle de tus movimientos por fecha, categorias etc. Además podrás editar y/o eliminar operaciones como desees. 
 
 **CATEGORIAS** 📋
 En esta sección podrás agregar, editar y/o eliminar categorías según tus necesidades.
