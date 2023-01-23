@@ -214,17 +214,18 @@ const mostrarDetalle = (datos) => {
   for (const { descripcion, categoria, fecha, monto, id, tipo } of datos) {
     let contenedorOperacion = document.createElement("div");
     contenedorOperacion.classList.add("container");
+    $titulosDetalle.classList.remove("is-hidden");
     contenedorOperacion.innerHTML += `
     <!-- Contenido tabla -->
     <div class="columns is-mobile">
     <div class="column">${descripcion}</div>
-    <div class="column">
+    <div class="column is-hidden-mobile">
     <span class="tag is-primary is-light">
     ${categoria}
     </span>
     </div>
     <div class="column is-hidden-mobile">${fecha}</div>
-    <div class="column ${
+    <div class="column is-size-7-mobile ${
       tipo === "ingresos" ? "has-text-success" : "has-text-danger"
     }">${tipo === "ingresos" ? "+" : "-"}$${monto}</div>
     <div class="column is-flex">
@@ -499,19 +500,19 @@ const mostrarResumen = () => {
   // luego con sort y las posiciones encuentro, en este caso el mayor
   $repoResumen.innerHTML += `
   <div class="columns is-mobile">
-  <div class="column is-size-6-mobile has-text-weight-medium is-half">Categoria con mayor Ingreso</div>
+  <div class="column is-size-7-mobile has-text-weight-medium is-half">Categoria con mayor Ingreso</div>
   <div class="column is-size-7-mobile"><span class="tag is-primary is-light">${ordenaXMontoIng[0].categoria}</span></div>
   <div class="column is-size-7-mobile has-text-success">+$${ordenaXMontoIng[0].monto}</div>
   </div>
   <div class="columns is-mobile">
-  <div class="column is-size-6-mobile has-text-weight-medium is-half">Categoria con mayor Gasto</div>
+  <div class="column is-size-7-mobile has-text-weight-medium is-half">Categoria con mayor Gasto</div>
   <div class="column is-size-7-mobile"><span class="tag is-primary is-light">${ordenaXMontoGastos[0].categoria}</span></div>
   <div class="column is-size-7-mobile has-text-danger">-$${ordenaXMontoGastos[0].monto}</div>
   </div>
   <div class="columns is-mobile">
-  <div class="column is-size-6-mobile has-text-weight-medium is-half">Categoria con mayor Balance</div>
-  <div class="column is-size-67-mobile"><span class="tag is-primary is-light">${ordenXbalance[0]["0"]}</span></div>
-  <div class="column is-size-67-mobile">$${ordenXbalance[0][1]["balance"]}</div>
+  <div class="column is-size-7-mobile has-text-weight-medium is-half">Categoria con mayor Balance</div>
+  <div class="column is-size-7-mobile"><span class="tag is-primary is-light">${ordenXbalance[0]["0"]}</span></div>
+  <div class="column is-size-7-mobile">$${ordenXbalance[0][1]["balance"]}</div>
   </div>
   <div class="columns is-mobile">
   <div class="column is-size-6-mobile has-text-weight-medium is-half">Mes con mayor Ingresos</div>
